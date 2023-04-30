@@ -1,5 +1,5 @@
 {
     "flavor": "dev",
-    "appName": "FAT dev",
+    "appName": "testFlavor dev",
     "appIdSuffix": ".dev"
 }
