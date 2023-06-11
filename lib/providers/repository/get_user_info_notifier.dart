@@ -48,7 +48,7 @@ class GetUserInfoNotifier extends StateNotifier<AsyncValue<void>> {
       // final data = await fetchData();
       // state = AsyncValue.data(UserInfoState(id: 99, name: 'fetchde_name'));
 
-      await Future.delayed(const Duration(seconds: 2)) as UserInfoState;
+      await Future.delayed(const Duration(seconds: 2));
       // UserInfoState user =
       //     new UserInfoState(id: 999, name: 'geted_name', email: 'mail_name');
       // print(user);
