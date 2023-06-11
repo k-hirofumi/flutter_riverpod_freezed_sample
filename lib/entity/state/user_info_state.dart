@@ -1,14 +1,14 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'user_info_entity.freezed.dart';
+part 'user_info_state.freezed.dart';
 
 @freezed
-class UserInfoEntity with _$UserInfoEntity {
-  factory UserInfoEntity({
+class UserInfoState with _$UserInfoState {
+  factory UserInfoState({
     required int id,
     required String name,
     @Default("") String? email,
-  }) = _UserInfoEntity;
+  }) = _UserInfoState;
 
   // factory UserInfoEntity.fromJson(Map<String, dynamic> json) =>
   //     _$UserInfoEntityFromJson(json);

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test_flavor/state/user_state_notifier.dart';
+import 'package:test_flavor/providers/repository/get_user_info_notifier.dart';
+import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
 
 class Home extends ConsumerWidget {
   const Home({super.key});
@@ -11,7 +12,8 @@ class Home extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // final userNotifier = ref.watch(userStateNotifierProvider.notifier);
     // final user = ref.watch(userStateNotifierProvider);
-    final overlay = LoadingOverlay.of(context);
+    final user = ref.watch(userStateNotifierProvider);
+    // final getUser = ref.watch(getUserInfoNotifierProvider.notifier);
 
     return Scaffold(
         appBar: AppBar(),
@@ -39,48 +41,67 @@ class Home extends ConsumerWidget {
                 //         .setEmail('mail!!!'),
                 //     child: const Text('setEmail')),
 
-                ref.watch(userStateNotifierProvider).when(
+                // ref.watch(userStateNotifierProvider).when(
+                //       data: (data) => Column(children: [
+                //         Text(
+                //             '${ref.watch(userStateNotifierProvider).value!.id}'),
+                //         ElevatedButton(
+                //             onPressed: () => ref
+                //                 .watch(userStateNotifierProvider.notifier)
+                //                 .increment(),
+                //             child: const Text('increase')),
+                //         Text(ref.watch(userStateNotifierProvider).value!.name),
+                //         ElevatedButton(
+                //             onPressed: () => ref
+                //                 .watch(userStateNotifierProvider.notifier)
+                //                 .setUser(id: 0, email: ''),
+                //             child: const Text('setUser')),
+                //         Text(
+                //             ref.watch(userStateNotifierProvider).value?.email ??
+                //                 ''),
+                //         ElevatedButton(
+                //             onPressed: () => ref
+                //                 .watch(userStateNotifierProvider.notifier)
+                //                 .setEmail('mail!!!'),
+                //             child: const Text('setEmail')),
+                //         Text('Name: ${data.name}'),
+                //       ]),
+                //       loading: () => CircularProgressIndicator(),
+                //       error: (error, stackTrace) => Text('Error: $error'),
+                //     ),
+                // // Text(ref.watch(userStateNotifierProvider).value?.email ?? ''),
+                // ElevatedButton(
+                //     onPressed: () => ref
+                //         .watch(userStateNotifierProvider.notifier)
+                //         .fetchDataAndUpdateUser(),
+                //     child: const Text('setEmail')),
+
+                // ElevatedButton(
+                //     onPressed: () async => await overlay
+                //         .during(Future.delayed(const Duration(seconds: 2))),
+                //     style: ButtonStyle(
+                //       backgroundColor: MaterialStateProperty.all(Colors.red),
+                //     ),
+                //     child: const Text('send!')),
+                // ElevatedButton(
+                //     onPressed: () async => ref.invalidate(getUserInfoNotifierProvider),
+                //     style: ButtonStyle(
+                //       backgroundColor: MaterialStateProperty.all(Colors.red),
+                //     ),
+                //     child: const Text('refresh!')),
+
+                ref.watch(getUserInfoNotifierProvider).when(
                       data: (data) => Column(children: [
-                        Text(
-                            '${ref.watch(userStateNotifierProvider).value!.id}'),
-                        ElevatedButton(
-                            onPressed: () => ref
-                                .watch(userStateNotifierProvider.notifier)
-                                .increment(),
-                            child: const Text('increase')),
-                        Text(ref.watch(userStateNotifierProvider).value!.name),
-                        ElevatedButton(
-                            onPressed: () => ref
-                                .watch(userStateNotifierProvider.notifier)
-                                .setUser(id: 0, email: ''),
-                            child: const Text('setUser')),
-                        Text(
-                            ref.watch(userStateNotifierProvider).value?.email ??
-                                ''),
-                        ElevatedButton(
-                            onPressed: () => ref
-                                .watch(userStateNotifierProvider.notifier)
-                                .setEmail('mail!!!'),
-                            child: const Text('setEmail')),
-                        Text('Name: ${data.name}'),
+                        Text(user.name ?? ''),
                       ]),
                       loading: () => CircularProgressIndicator(),
                       error: (error, stackTrace) => Text('Error: $error'),
                     ),
-                // Text(ref.watch(userStateNotifierProvider).value?.email ?? ''),
                 ElevatedButton(
                     onPressed: () => ref
-                        .watch(userStateNotifierProvider.notifier)
+                        .watch(getUserInfoNotifierProvider.notifier)
                         .fetchDataAndUpdateUser(),
-                    child: const Text('setEmail')),
-
-                ElevatedButton(
-                    onPressed: () async => await overlay
-                        .during(Future.delayed(const Duration(seconds: 2))),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.red),
-                    ),
-                    child: const Text('send!')),
+                    child: const Text('setUser')),
               ],
             ),
           ),

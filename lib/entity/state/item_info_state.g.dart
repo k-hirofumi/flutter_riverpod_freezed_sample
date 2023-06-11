@@ -1,21 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_entity.dart';
+part of 'item_info_state.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_UserEntity _$$_UserEntityFromJson(Map<String, dynamic> json) =>
-    _$_UserEntity(
+_$_ItemInfoState _$$_ItemInfoStateFromJson(Map<String, dynamic> json) =>
+    _$_ItemInfoState(
       id: json['id'] as int,
+      type: json['type'] as String,
       name: json['name'] as String,
-      email: json['email'] as String? ?? "",
+      price: json['price'] as String,
     );
 
-Map<String, dynamic> _$$_UserEntityToJson(_$_UserEntity instance) =>
+Map<String, dynamic> _$$_ItemInfoStateToJson(_$_ItemInfoState instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'type': instance.type,
       'name': instance.name,
-      'email': instance.email,
+      'price': instance.price,
     };

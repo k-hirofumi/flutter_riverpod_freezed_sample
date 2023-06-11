@@ -29,10 +29,12 @@
 // });
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test_flavor/entity/user_entity.dart';
+import 'package:test_flavor/entity/state/item_info_state.dart';
+import 'package:test_flavor/entity/state/user_info_state.dart';
+import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
 
-class GetUserNotifier extends StateNotifier<AsyncValue<void>> {
-  GetUserNotifier(this.ref) : super(const AsyncValue.data(null));
+class GetUserInfoNotifier extends StateNotifier<AsyncValue<void>> {
+  GetUserInfoNotifier(this.ref) : super(const AsyncValue.data(null));
   final Ref ref;
   // //プロバイダー呼び出し時に初期データ取得
   // : super(AsyncValue.loading()){
@@ -44,15 +46,24 @@ class GetUserNotifier extends StateNotifier<AsyncValue<void>> {
 
     try {
       // final data = await fetchData();
-      await Future.delayed(const Duration(seconds: 2));
-      state = AsyncValue.data(UserEntity(id: 99, name: 'fetchde_name'));
+      // state = AsyncValue.data(UserInfoState(id: 99, name: 'fetchde_name'));
+
+      await Future.delayed(const Duration(seconds: 2)) as UserInfoState;
+      // UserInfoState user =
+      //     new UserInfoState(id: 999, name: 'geted_name', email: 'mail_name');
+      // print(user);
+
+      ref
+          .watch(userStateNotifierProvider.notifier)
+          .setUser(id: 999, name: 'geted_name', email: 'mail_name');
+      state = const AsyncValue.data(null);
     } catch (error, stack) {
       state = AsyncValue.error(error, stack);
     }
   }
 }
 
-final userStateNotifierProvider =
-    StateNotifierProvider<GetUserNotifier, AsyncValue<void>>((ref) {
-  return GetUserNotifier(ref);
+final getUserInfoNotifierProvider =
+    StateNotifierProvider<GetUserInfoNotifier, AsyncValue<void>>((ref) {
+  return GetUserInfoNotifier(ref);
 });
