@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test_flavor/providers/repository/get_user_info_notifier.dart';
+import 'package:test_flavor/providers/repository/get_user_notifier.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
 
 class Home extends ConsumerWidget {
@@ -14,7 +14,7 @@ class Home extends ConsumerWidget {
     // final user = ref.watch(userStateNotifierProvider);
     final user = ref.watch(userStateNotifierProvider);
     // final getUser = ref.watch(getUserInfoNotifierProvider.notifier);
-
+    final overlay = LoadingOverlay(context);
     return Scaffold(
         appBar: AppBar(),
         body: SafeArea(
@@ -90,7 +90,7 @@ class Home extends ConsumerWidget {
                 //     ),
                 //     child: const Text('refresh!')),
 
-                ref.watch(getUserInfoNotifierProvider).when(
+                ref.watch(getUserNotifierProvider).when(
                       data: (data) => Column(children: [
                         Text(user.name ?? ''),
                       ]),
@@ -99,9 +99,24 @@ class Home extends ConsumerWidget {
                     ),
                 ElevatedButton(
                     onPressed: () => ref
-                        .watch(getUserInfoNotifierProvider.notifier)
+                        .watch(getUserNotifierProvider.notifier)
                         .fetchDataAndUpdateUser(),
                     child: const Text('setUser')),
+                ElevatedButton(
+                    onPressed: () async =>
+                        ref.invalidate(userStateNotifierProvider),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.red),
+                    ),
+                    child: const Text('refresh!')),
+                ElevatedButton(
+                    onPressed: () async => await overlay.during(ref
+                        .watch(getUserNotifierProvider.notifier)
+                        .fetchDataAndUpdateUser()),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.red),
+                    ),
+                    child: const Text('send!')),
               ],
             ),
           ),
@@ -110,15 +125,16 @@ class Home extends ConsumerWidget {
 }
 
 class LoadingOverlay {
-  BuildContext _context;
+  LoadingOverlay(this.context);
+  BuildContext context;
 
   void hide() {
-    Navigator.of(_context).pop();
+    Navigator.of(context).pop();
   }
 
   void show() {
     showDialog(
-        context: _context,
+        context: context,
         barrierDismissible: false,
         builder: (ctx) => _FullScreenLoader());
   }
@@ -128,11 +144,16 @@ class LoadingOverlay {
     return future.whenComplete(() => hide());
   }
 
-  LoadingOverlay._create(this._context);
-
-  factory LoadingOverlay.of(BuildContext context) {
-    return LoadingOverlay._create(context);
-  }
+  // Future<void> during(Function future) async {
+  // show();
+  // try {
+  //   await future();
+  // } catch (e) {
+  //   print('error');
+  // } finally {
+  //   hide();
+  // }
+  // }
 }
 
 class _FullScreenLoader extends StatelessWidget {
@@ -143,3 +164,27 @@ class _FullScreenLoader extends StatelessWidget {
         child: const Center(child: CircularProgressIndicator()));
   }
 }
+
+
+// class LoadingOverlay extends StatelessWidget {
+//   final bool isLoading;
+//   final Widget child;
+
+//   LoadingOverlay({required this.isLoading, required this.child});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Stack(
+//       children: [
+//         child,
+//         if (isLoading)
+//           Container(
+//             color: Colors.black54,
+//             child: Center(
+//               child: CircularProgressIndicator(),
+//             ),
+//           ),
+//       ],
+//     );
+//   }
+// }
