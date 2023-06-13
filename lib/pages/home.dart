@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test_flavor/pages/alert_dialogue.dart';
 import 'package:test_flavor/providers/repository/get_user_notifier.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
 
@@ -91,12 +92,20 @@ class Home extends ConsumerWidget {
                 //     child: const Text('refresh!')),
 
                 ref.watch(getUserNotifierProvider).when(
-                      data: (data) => Column(children: [
-                        Text(user.name ?? ''),
-                      ]),
-                      loading: () => CircularProgressIndicator(),
-                      error: (error, stackTrace) => Text('Error: $error'),
-                    ),
+                    data: (data) => Column(children: [
+                          Text(user.name ?? ''),
+                        ]),
+                    loading: () => CircularProgressIndicator(),
+                    error: (error, stackTrace) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        showDialog(
+                            context: context,
+                            builder: (_) =>
+                                NetworkErrorDialogue(errorCode: error));
+                      });
+
+                      return Text('データの取得に失敗しました。');
+                    }),
                 ElevatedButton(
                     onPressed: () => ref
                         .watch(getUserNotifierProvider.notifier)
@@ -143,17 +152,6 @@ class LoadingOverlay {
     show();
     return future.whenComplete(() => hide());
   }
-
-  // Future<void> during(Function future) async {
-  // show();
-  // try {
-  //   await future();
-  // } catch (e) {
-  //   print('error');
-  // } finally {
-  //   hide();
-  // }
-  // }
 }
 
 class _FullScreenLoader extends StatelessWidget {
