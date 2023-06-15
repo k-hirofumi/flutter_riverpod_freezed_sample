@@ -2,20 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test_flavor/pages/alert_dialogue.dart';
+import 'package:test_flavor/components/alert_dialogue.dart';
 import 'package:test_flavor/providers/repository/get_user_notifier.dart';
+import 'package:test_flavor/providers/repository/update_user_notifier.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
+import 'package:test_flavor/utils/loading_overlay.dart';
 
 class Home extends ConsumerWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final userNotifier = ref.watch(userStateNotifierProvider.notifier);
-    // final user = ref.watch(userStateNotifierProvider);
     final user = ref.watch(userStateNotifierProvider);
-    // final getUser = ref.watch(getUserInfoNotifierProvider.notifier);
+
     final overlay = LoadingOverlay(context);
+    final reload = () async {
+      overlay
+          .during(ref.watch(updateUserNotifierProvider.notifier).updateUser());
+    };
     return Scaffold(
         appBar: AppBar(),
         body: SafeArea(
@@ -77,20 +81,6 @@ class Home extends ConsumerWidget {
                 //         .fetchDataAndUpdateUser(),
                 //     child: const Text('setEmail')),
 
-                // ElevatedButton(
-                //     onPressed: () async => await overlay
-                //         .during(Future.delayed(const Duration(seconds: 2))),
-                //     style: ButtonStyle(
-                //       backgroundColor: MaterialStateProperty.all(Colors.red),
-                //     ),
-                //     child: const Text('send!')),
-                // ElevatedButton(
-                //     onPressed: () async => ref.invalidate(getUserInfoNotifierProvider),
-                //     style: ButtonStyle(
-                //       backgroundColor: MaterialStateProperty.all(Colors.red),
-                //     ),
-                //     child: const Text('refresh!')),
-
                 ref.watch(getUserNotifierProvider).when(
                     data: (data) => Column(children: [
                           Text(user.name ?? ''),
@@ -119,13 +109,11 @@ class Home extends ConsumerWidget {
                     ),
                     child: const Text('refresh!')),
                 ElevatedButton(
-                    onPressed: () async => await overlay.during(ref
-                        .watch(getUserNotifierProvider.notifier)
-                        .fetchDataAndUpdateUser()),
+                    onPressed: () async => reload(),
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.red),
+                      backgroundColor: MaterialStateProperty.all(Colors.yellow),
                     ),
-                    child: const Text('send!')),
+                    child: const Text('send!2')),
               ],
             ),
           ),
@@ -133,35 +121,6 @@ class Home extends ConsumerWidget {
   }
 }
 
-class LoadingOverlay {
-  LoadingOverlay(this.context);
-  BuildContext context;
-
-  void hide() {
-    Navigator.of(context).pop();
-  }
-
-  void show() {
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (ctx) => _FullScreenLoader());
-  }
-
-  Future<T> during<T>(Future<T> future) {
-    show();
-    return future.whenComplete(() => hide());
-  }
-}
-
-class _FullScreenLoader extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        decoration: const BoxDecoration(color: Color.fromRGBO(0, 0, 0, 0.5)),
-        child: const Center(child: CircularProgressIndicator()));
-  }
-}
 
 
 // class LoadingOverlay extends StatelessWidget {

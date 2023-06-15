@@ -1,20 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'item_info_state.dart';
+part of 'item_info_state_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ItemInfoState _$$_ItemInfoStateFromJson(Map<String, dynamic> json) =>
-    _$_ItemInfoState(
+_$_ItemInfoStateResponse _$$_ItemInfoStateResponseFromJson(
+        Map<String, dynamic> json) =>
+    _$_ItemInfoStateResponse(
       id: json['id'] as int,
       type: json['type'] as String,
       name: json['name'] as String,
       price: json['price'] as String,
     );
 
-Map<String, dynamic> _$$_ItemInfoStateToJson(_$_ItemInfoState instance) =>
+Map<String, dynamic> _$$_ItemInfoStateResponseToJson(
+        _$_ItemInfoStateResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
       'type': instance.type,

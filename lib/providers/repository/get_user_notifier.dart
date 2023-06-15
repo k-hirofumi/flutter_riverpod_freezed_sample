@@ -30,7 +30,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test_flavor/entity/state/item_info_state.dart';
+import 'package:test_flavor/entity/state/item_info_state_response.dart';
 import 'package:test_flavor/entity/state/user_info_state.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
 
