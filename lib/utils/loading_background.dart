@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_flavor/components/alert_dialogue.dart';
+import 'package:test_flavor/components/alert_dialog.dart';
 
 class LoadingBackground {
   LoadingBackground(this.context);
@@ -12,7 +12,7 @@ class LoadingBackground {
       showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (ctx) => NetworkErrorDialogue(errorCode: error),
+        builder: (ctx) => NetworkErrorDialog(errorCode: error),
       );
     });
   }

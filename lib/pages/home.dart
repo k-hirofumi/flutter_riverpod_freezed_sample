@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test_flavor/components/alert_dialogue.dart';
+import 'package:test_flavor/components/alert_dialog.dart';
+import 'package:test_flavor/pages/second.dart';
+import 'package:test_flavor/pages/third.dart';
 import 'package:test_flavor/providers/repository/get_user_notifier.dart';
 import 'package:test_flavor/providers/repository/update_user_notifier.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
@@ -91,10 +93,10 @@ class Home extends ConsumerWidget {
                         showDialog(
                             context: context,
                             builder: (_) =>
-                                NetworkErrorDialogue(errorCode: error));
+                                NetworkErrorDialog(errorCode: error));
                       });
 
-                      return Text('データの取得に失敗しました。');
+                      return Text('データが取得できませんでした。');
                     }),
                 ElevatedButton(
                     onPressed: () => ref
@@ -111,9 +113,28 @@ class Home extends ConsumerWidget {
                 ElevatedButton(
                     onPressed: () async => reload(),
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                      backgroundColor: MaterialStateProperty.all(Colors.pink),
                     ),
                     child: const Text('send!2')),
+                ElevatedButton(
+                    onPressed: () async => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Second()),
+                        ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.green),
+                    ),
+                    child: const Text('second')),
+                ElevatedButton(
+                    onPressed: () async => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Third()),
+                        ),
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.lightGreen),
+                    ),
+                    child: const Text('third')),
               ],
             ),
           ),
