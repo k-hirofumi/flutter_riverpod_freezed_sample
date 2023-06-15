@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_flavor/pages/alert_dialogue.dart';
+import 'package:test_flavor/pages/second.dart';
 import 'package:test_flavor/providers/repository/get_user_notifier.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
 
@@ -126,6 +127,17 @@ class Home extends ConsumerWidget {
                       backgroundColor: MaterialStateProperty.all(Colors.red),
                     ),
                     child: const Text('send!')),
+                ElevatedButton(
+                  onPressed: () {
+                    // （1） 指定した画面に遷移する
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            // （2） 実際に表示するページ(ウィジェット)を指定する
+                            builder: (context) => SecondPage()));
+                  },
+                  child: const Text('SecondPage'),
+                )
               ],
             ),
           ),
