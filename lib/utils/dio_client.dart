@@ -26,13 +26,19 @@ class DioClient {
         }
         return handler.next(options);
       },
-      onResponse: (e, handler) {
+      onResponse: (response, handler) {
         if (kDebugMode) {
           print(
-              "RESPONSE[${e.statusCode}] => PATH: ${e.requestOptions.path} /  DATA: ${e.data}");
-          print("RESPONSE[${e.statusCode}] => DATA: ${e.data}");
+              "RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path} /  DATA: ${response.data}");
+          print("RESPONSE[${response.statusCode}] => DATA: ${response.data}");
         }
-        return handler.next(e);
+        return handler.next(response);
+      },
+      onError: (error, handler) {
+        // if(kDebugMode){
+//FIX_ME ここにクラッシュ通知を実装するとAPIエラーのみ拾える。バリデーションエラーは拾えない
+        // }
+        return handler.next(error);
       },
     ));
   }

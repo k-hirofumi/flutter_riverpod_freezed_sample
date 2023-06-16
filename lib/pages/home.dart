@@ -16,7 +16,6 @@ class Home extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print('Home!!!!!!');
     return Scaffold(
         appBar: AppBar(),
         body: SafeArea(
@@ -28,7 +27,6 @@ class Home extends ConsumerWidget {
                 ref.watch(getUserNotifierProvider).when(
                     data: (data) {
                       final user = ref.watch(userStateNotifierProvider);
-                      print('Home!!!!!!');
                       // final overlay = LoadingOverlay(context);
                       // final reload = () async {
                       //   overlay.during(ref

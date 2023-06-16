@@ -19,12 +19,12 @@ class GetItemNotifier extends StateNotifier<AsyncValue<ItemInfoStateResponse>> {
     state = const AsyncValue.loading();
     try {
       await Future.delayed(const Duration(seconds: 1));
-      await Dio()
-          .get('https://api.example.com/data')
-          .then((value) {})
-          .onError((error, stackTrace) {
-        ErrorHandler.handle(error); //エラーハンドリング
-      });
+      // await Dio()
+      //     .get('https://api.example.com/data')
+      //     .then((value) {})
+      //     .onError((error, stackTrace) {
+      //   ErrorHandler.handle(error); //エラーハンドリング
+      // });
 
       final data = ItemInfoStateResponse(
         id: 1,
