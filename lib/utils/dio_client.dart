@@ -35,9 +35,11 @@ class DioClient {
         return handler.next(response);
       },
       onError: (error, handler) {
-        // if(kDebugMode){
-//FIX_ME ここにクラッシュ通知を実装するとAPIエラーのみ拾える。バリデーションエラーは拾えない
-        // }
+        //FIX_ME ここにクラッシュ通知を実装するとAPIエラーのみ拾える。バリデーションエラーは拾えない
+        if (kDebugMode) {
+          print(
+              'ERROR[${error.response?.statusCode}] => PATH: ${error.requestOptions.path} /  DATA: ${error.response?.data}');
+        }
         return handler.next(error);
       },
     ));
