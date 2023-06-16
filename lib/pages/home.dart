@@ -3,25 +3,20 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_flavor/components/alert_dialog.dart';
+import 'package:test_flavor/pages/forth.dart';
 import 'package:test_flavor/pages/second.dart';
 import 'package:test_flavor/pages/third.dart';
 import 'package:test_flavor/providers/repository/get_user_notifier.dart';
 import 'package:test_flavor/providers/repository/update_user_notifier.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
-import 'package:test_flavor/utils/loading_overlay.dart';
+import 'package:test_flavor/utils/loading_handler.dart';
 
 class Home extends ConsumerWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userStateNotifierProvider);
-
-    final overlay = LoadingOverlay(context);
-    final reload = () async {
-      overlay
-          .during(ref.watch(updateUserNotifierProvider.notifier).updateUser());
-    };
+    print('Home!!!!!!');
     return Scaffold(
         appBar: AppBar(),
         body: SafeArea(
@@ -29,64 +24,30 @@ class Home extends ConsumerWidget {
             child: Column(
               children: [
                 const Text('home'),
-                // Text('${ref.watch(userStateNotifierProvider).value!.id}'),
-                // ElevatedButton(
-                //     onPressed: () => ref
-                //         .watch(userStateNotifierProvider.notifier)
-                //         .increment(),
-                //     child: const Text('increase')),
-                // Text(ref.watch(userStateNotifierProvider).value!.name),
-                // ElevatedButton(
-                //     onPressed: () => ref
-                //         .watch(userStateNotifierProvider.notifier)
-                //         .setUser(id: 0, email: ''),
-                //     child: const Text('setUser')),
-                // Text(ref.watch(userStateNotifierProvider).value?.email ?? ''),
-                // ElevatedButton(
-                //     onPressed: () => ref
-                //         .watch(userStateNotifierProvider.notifier)
-                //         .setEmail('mail!!!'),
-                //     child: const Text('setEmail')),
-
-                // ref.watch(userStateNotifierProvider).when(
-                //       data: (data) => Column(children: [
-                //         Text(
-                //             '${ref.watch(userStateNotifierProvider).value!.id}'),
-                //         ElevatedButton(
-                //             onPressed: () => ref
-                //                 .watch(userStateNotifierProvider.notifier)
-                //                 .increment(),
-                //             child: const Text('increase')),
-                //         Text(ref.watch(userStateNotifierProvider).value!.name),
-                //         ElevatedButton(
-                //             onPressed: () => ref
-                //                 .watch(userStateNotifierProvider.notifier)
-                //                 .setUser(id: 0, email: ''),
-                //             child: const Text('setUser')),
-                //         Text(
-                //             ref.watch(userStateNotifierProvider).value?.email ??
-                //                 ''),
-                //         ElevatedButton(
-                //             onPressed: () => ref
-                //                 .watch(userStateNotifierProvider.notifier)
-                //                 .setEmail('mail!!!'),
-                //             child: const Text('setEmail')),
-                //         Text('Name: ${data.name}'),
-                //       ]),
-                //       loading: () => CircularProgressIndicator(),
-                //       error: (error, stackTrace) => Text('Error: $error'),
-                //     ),
-                // // Text(ref.watch(userStateNotifierProvider).value?.email ?? ''),
-                // ElevatedButton(
-                //     onPressed: () => ref
-                //         .watch(userStateNotifierProvider.notifier)
-                //         .fetchDataAndUpdateUser(),
-                //     child: const Text('setEmail')),
 
                 ref.watch(getUserNotifierProvider).when(
-                    data: (data) => Column(children: [
-                          Text(user.name ?? ''),
-                        ]),
+                    data: (data) {
+                      final user = ref.watch(userStateNotifierProvider);
+                      print('Home!!!!!!');
+                      // final overlay = LoadingOverlay(context);
+                      // final reload = () async {
+                      //   overlay.during(ref
+                      //       .watch(updateUserNotifierProvider.notifier)
+                      //       .updateUser());
+                      // };
+
+                      return Column(children: [
+                        Text(user.name ?? ''),
+                        // ElevatedButton(
+                        //     onPressed: () async => await overlay.during(
+                        //         Future.delayed(const Duration(seconds: 2))),
+                        //     style: ButtonStyle(
+                        //       backgroundColor:
+                        //           MaterialStateProperty.all(Colors.red),
+                        //     ),
+                        //     child: const Text('send!')),
+                      ]);
+                    },
                     loading: () => CircularProgressIndicator(),
                     error: (error, stackTrace) {
                       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -110,12 +71,13 @@ class Home extends ConsumerWidget {
                       backgroundColor: MaterialStateProperty.all(Colors.red),
                     ),
                     child: const Text('refresh!')),
-                ElevatedButton(
-                    onPressed: () async => reload(),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.pink),
-                    ),
-                    child: const Text('send!2')),
+                // ElevatedButton(
+                //     onPressed: () async => reload(),
+                //     style: ButtonStyle(
+                //       backgroundColor: MaterialStateProperty.all(Colors.pink),
+                //     ),
+                //     child: const Text('send!2')),
+
                 ElevatedButton(
                     onPressed: () async => Navigator.push(
                           context,
@@ -135,6 +97,15 @@ class Home extends ConsumerWidget {
                           MaterialStateProperty.all(Colors.lightGreen),
                     ),
                     child: const Text('third')),
+                ElevatedButton(
+                    onPressed: () async => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Forth()),
+                        ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.purple),
+                    ),
+                    child: const Text('forth')),
               ],
             ),
           ),

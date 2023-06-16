@@ -8,7 +8,7 @@ class Third extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final itemProvider = ref.watch(getItemAsyncProvider);
+    final itemProvider = ref.watch(getUserNotifierProvider);
     return Scaffold(
       appBar: AppBar(),
       body: SafeArea(

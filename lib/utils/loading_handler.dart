@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:test_flavor/components/alert_dialog.dart';
 
-class LoadingOverlay {
-  LoadingOverlay(this.context);
+class LoadingHandler {
+  LoadingHandler(this.context);
   BuildContext context;
 
   void hide() {
@@ -16,7 +16,7 @@ class LoadingOverlay {
         builder: (ctx) => _FullScreenLoader());
   }
 
-  Future<void> during(Future<dynamic> future,
+  Future<void> overlay(Future<dynamic> future,
       {String successMessage = '処理が完了しました。'}) async {
     show();
 
@@ -40,6 +40,18 @@ class LoadingOverlay {
               ));
     }).onError((error, stackTrace) {
       hide();
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (ctx) => NetworkErrorDialog(errorCode: error),
+      );
+    });
+  }
+
+  Future<void> background(Future<dynamic> future) async {
+    future.then((value) {
+      //処理成功時のメッセージは表示しない。
+    }).onError((error, stackTrace) {
       showDialog(
         context: context,
         barrierDismissible: false,

@@ -36,7 +36,10 @@ import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
 import 'package:test_flavor/utils/error_handler.dart';
 
 class GetUserNotifier extends StateNotifier<AsyncValue<void>> {
-  GetUserNotifier(this.ref) : super(const AsyncValue.data(null));
+  GetUserNotifier(this.ref) : super(const AsyncValue.loading()) {
+    print('GetUserNotifier!!!!');
+    fetchDataAndUpdateUser();
+  }
   final Ref ref;
   // //プロバイダー呼び出し時に初期データ取得(ステートをリセットする必要がある場合は使用しない)
   // : super(AsyncValue.loading()){
@@ -45,11 +48,7 @@ class GetUserNotifier extends StateNotifier<AsyncValue<void>> {
 
   Future<void> fetchDataAndUpdateUser() async {
     state = const AsyncValue.loading();
-
     try {
-      // final data = await fetchData();
-      // state = AsyncValue.data(UserInfoState(id: 99, name: 'fetchde_name'));
-
       await Future.delayed(const Duration(seconds: 1));
       await Dio()
           .get('https://api.example.com/data')
@@ -59,7 +58,7 @@ class GetUserNotifier extends StateNotifier<AsyncValue<void>> {
       });
 
       ref
-          .watch(userStateNotifierProvider.notifier)
+          .read(userStateNotifierProvider.notifier) //リビルドに巻き込まれないように必ずreadを使用する
           .setUser(id: 999, name: 'geted_name', email: 'mail_name');
       state = const AsyncValue.data(null);
     } catch (error, stackTrace) {
@@ -69,6 +68,6 @@ class GetUserNotifier extends StateNotifier<AsyncValue<void>> {
 }
 
 final getUserNotifierProvider =
-    StateNotifierProvider<GetUserNotifier, AsyncValue<void>>((ref) {
+    StateNotifierProvider.autoDispose<GetUserNotifier, AsyncValue<void>>((ref) {
   return GetUserNotifier(ref);
 });
