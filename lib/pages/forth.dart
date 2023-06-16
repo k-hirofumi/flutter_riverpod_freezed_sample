@@ -29,9 +29,34 @@ class Forth extends ConsumerWidget {
                   child: const Text('refresh!')),
               ElevatedButton(
                   onPressed: () async {
-                    await overlay.overlay(ref
-                        .watch(updateUserNotifierProvider.notifier)
-                        .updateUser());
+                    //更新完了後の処理
+                    nextAction() {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (ctx) => AlertDialog(
+                          title: const Text('更新完了'),
+                          content: const Text('更新が完了しました。'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(ctx).pop();
+                                Navigator.of(ctx).pop();
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+
+                    // ここで更新処理を実行
+                    await overlay.overlay(
+                      ref
+                          .watch(updateUserNotifierProvider.notifier)
+                          .updateUser(),
+                      nextAction: nextAction,
+                    );
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.red),

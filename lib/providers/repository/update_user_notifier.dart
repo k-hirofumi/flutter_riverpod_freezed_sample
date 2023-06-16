@@ -16,12 +16,12 @@ class UpdateUserNotifier extends StateNotifier<void> {
   Future<void> updateUser() async {
     try {
       await Future.delayed(const Duration(seconds: 2));
-      await Dio()
-          .get('https://api.example.com/data')
-          .then((value) {})
-          .onError((error, stackTrace) {
-        ErrorHandler.handle(error); //エラーハンドリング
-      });
+      // await Dio()
+      //     .get('https://api.example.com/data')
+      //     .then((value) {})
+      //     .onError((error, stackTrace) {
+      //   ErrorHandler.handle(error); //エラーハンドリング
+      // });
       // throw 900;
     } catch (error, stackTrace) {
       throw error;

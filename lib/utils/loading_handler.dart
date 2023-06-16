@@ -17,27 +17,30 @@ class LoadingHandler {
   }
 
   Future<void> overlay(Future<dynamic> future,
-      {String successMessage = '処理が完了しました。'}) async {
+      {Function? nextAction, String successMessage = '処理が完了しました。'}) async {
     show();
 
     future.then((_) {
       hide();
 
+      if (nextAction != null) {
+        nextAction();
+      }
       //FIX_ME showDialogを柔軟に設定する必要があれば、during処理が完了した後にshowDialogを呼び出すようにする
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (ctx) => AlertDialog(
-                title: const Text('success'),
-                content: Text(successMessage),
-                actions: [
-                  TextButton(
-                      onPressed: () {
-                        hide();
-                      },
-                      child: const Text('OK'))
-                ],
-              ));
+      // showDialog(
+      //     context: context,
+      //     barrierDismissible: false,
+      //     builder: (ctx) => AlertDialog(
+      //           title: const Text('success'),
+      //           content: Text(successMessage),
+      //           actions: [
+      //             TextButton(
+      //                 onPressed: () {
+      //                   hide();
+      //                 },
+      //                 child: const Text('OK'))
+      //           ],
+      //         ));
     }).onError((error, stackTrace) {
       hide();
       showDialog(
