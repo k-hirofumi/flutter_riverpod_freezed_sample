@@ -21,4 +21,4 @@ fvm flutter run --dart-define-from-file=dart_defines/dev.json
 
 ### freezed ファイルビルド
 
-fvm flutter pub run build_runner build
+fvm flutter pub run build_runner build --delete-conflicting-outputs

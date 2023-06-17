@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-class NetworkErrorDialogue extends StatelessWidget {
-  const NetworkErrorDialogue({super.key, this.errorCode});
+class NetworkErrorDialog extends StatelessWidget {
+  const NetworkErrorDialog({super.key, this.errorCode});
   final errorCode;
 
   @override

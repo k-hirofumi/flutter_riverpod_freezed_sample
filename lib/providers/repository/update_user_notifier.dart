@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test_flavor/entity/state/item_info_state.dart';
+import 'package:test_flavor/api/user_api.dart';
+import 'package:test_flavor/entity/state/item_info_state_response.dart';
 import 'package:test_flavor/entity/state/user_info_state.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
+import 'package:test_flavor/utils/error_handler.dart';
 
 class UpdateUserNotifier extends StateNotifier<void> {
   UpdateUserNotifier(this.ref) : super(null);
@@ -12,41 +14,18 @@ class UpdateUserNotifier extends StateNotifier<void> {
   // fetchDataAndUpdateUser()
   // };
 
-  Future<void> fetchDataAndUpdateUser() async {
+  Future<void> updateUser() async {
     try {
-      await Future.delayed(const Duration(seconds: 1));
-      await Dio()
-          .get('https://api.example.com/data')
-          .then((value) {})
-          .onError((e, stackTrace) {
-        if (e is DioException) {
-          if (e.response != null) {
-            // エラーステータスが存在する場合
-            final statusCode = e.response!.statusCode;
-            print('Error Status Code: $statusCode');
-            // エラーレスポンスの内容も取得可能
-            final errorData = e.response!.data;
-            print('Error Response: $errorData');
-            throw statusCode!;
-          } else {
-            // ネットワーク接続エラーやタイムアウトなどの場合
-            print('Network Error: $e');
-            throw 900;
-          }
-        } else {
-          // DioError以外の例外の場合
-          print('Unexpected Error: $e');
-          throw 901;
-        }
-      });
-      ref
-          .watch(userStateNotifierProvider.notifier)
-          .setUser(id: 999, name: 'geted_name', email: 'mail_name');
-    } catch (error, stack) {}
+      await Future.delayed(const Duration(seconds: 2));
+      //データ取得
+      await UserApi.updateUser();
+    } catch (error, stackTrace) {
+      throw error;
+    }
   }
 }
 
-final getUserNotifierProvider =
+final updateUserNotifierProvider =
     StateNotifierProvider<UpdateUserNotifier, void>((ref) {
   return UpdateUserNotifier(ref);
 });

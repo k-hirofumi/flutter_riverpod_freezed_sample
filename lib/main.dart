@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test_flavor/pages/home.dart';
 import 'package:test_flavor/pages/introduction_screen.dart';
 import 'package:test_flavor/providers/providers.dart';
@@ -17,15 +18,23 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // final bool isFinishIntroduction = ref.watch(finishIntroductionProvider);
 
-    return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-        home: ref.watch(finish) == false
-            ? const IntroductionScreens()
-            : const Home());
+    return ScreenUtilInit(
+      designSize: Size(393.0, 852.0), //iPhone14Pro
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+          home: ref.watch(finish) == false
+              ? const IntroductionScreens()
+              : const Home(),
+        );
+      },
+    );
   }
 }
 
