@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test_flavor/components/alert_dialog.dart';
+import 'package:test_flavor/components/default_app_bar.dart';
 import 'package:test_flavor/providers/repository/get_item_info_notifier.dart';
 
 class Third extends ConsumerWidget {
@@ -10,7 +12,9 @@ class Third extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final itemProvider = ref.watch(getUserNotifierProvider);
     return Scaffold(
-      appBar: AppBar(),
+      appBar: DefaultAppBar(
+        title: 'Third',
+      ),
       body: SafeArea(
         child: itemProvider.when(
           data: (data) => Center(

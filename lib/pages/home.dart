@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_flavor/components/alert_dialog.dart';
+import 'package:test_flavor/components/default_app_bar.dart';
 import 'package:test_flavor/pages/forth.dart';
 import 'package:test_flavor/pages/second.dart';
 import 'package:test_flavor/pages/third.dart';
@@ -17,7 +18,9 @@ class Home extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: DefaultAppBar(
+          title: 'home',
+        ),
         body: SafeArea(
           child: Center(
             child: Column(
