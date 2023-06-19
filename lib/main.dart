@@ -36,6 +36,22 @@ class MyApp extends ConsumerWidget {
                 title: 'Flutter Demo',
                 theme: ThemeData(
                   primarySwatch: Colors.blue,
+                  textTheme: TextTheme(
+                    bodyLarge: TextStyle(fontSize: ScreenUtil().setSp(24)),
+                    bodyMedium: TextStyle(fontSize: ScreenUtil().setSp(18)),
+                    bodySmall: TextStyle(fontSize: ScreenUtil().setSp(14)),
+                  ),
+                  elevatedButtonTheme: ElevatedButtonThemeData(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      textStyle: TextStyle(
+                        fontSize: ScreenUtil().setSp(18.h < 18 ? 18 : 18.h),
+                      ),
+                    ),
+                  ),
                 ),
                 // home: const MyHomePage(title: 'Flutter Demo Home Page'),
                 // home: ref.watch(finish) == false
