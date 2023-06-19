@@ -38,23 +38,9 @@ class Home extends ConsumerWidget {
                 ref.watch(getUserNotifierProvider).when(
                     data: (data) {
                       final user = ref.watch(userStateNotifierProvider);
-                      // final overlay = LoadingOverlay(context);
-                      // final reload = () async {
-                      //   overlay.during(ref
-                      //       .watch(updateUserNotifierProvider.notifier)
-                      //       .updateUser());
-                      // };
 
                       return Column(children: [
                         Text(user.name ?? ''),
-                        // ElevatedButton(
-                        //     onPressed: () async => await overlay.during(
-                        //         Future.delayed(const Duration(seconds: 2))),
-                        //     style: ButtonStyle(
-                        //       backgroundColor:
-                        //           MaterialStateProperty.all(Colors.red),
-                        //     ),
-                        //     child: const Text('send!')),
                       ]);
                     },
                     loading: () => CircularProgressIndicator(),
@@ -72,6 +58,11 @@ class Home extends ConsumerWidget {
                     onPressed: () => ref
                         .watch(getUserNotifierProvider.notifier)
                         .fetchDataAndUpdateUser(),
+                    child: const Text('setUserAsync')),
+                ElevatedButton(
+                    onPressed: () => ref
+                        .watch(userStateNotifierProvider.notifier)
+                        .setUser(name: '!!!!!'),
                     child: const Text('setUser')),
                 ElevatedButton(
                     onPressed: () async =>

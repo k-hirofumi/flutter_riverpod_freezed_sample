@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:test_flavor/utils/custom_theme_data.dart';
 import 'package:test_flavor/components/lazy_load_index_stacl.dart';
 import 'package:test_flavor/navigators/account_navigator.dart';
 import 'package:test_flavor/navigators/chat_navigator%20copy.dart';
@@ -34,25 +35,7 @@ class MyApp extends ConsumerWidget {
             ? const IntroductionScreens()
             : MaterialApp(
                 title: 'Flutter Demo',
-                theme: ThemeData(
-                  primarySwatch: Colors.blue,
-                  textTheme: TextTheme(
-                    bodyLarge: TextStyle(fontSize: ScreenUtil().setSp(24)),
-                    bodyMedium: TextStyle(fontSize: ScreenUtil().setSp(18)),
-                    bodySmall: TextStyle(fontSize: ScreenUtil().setSp(14)),
-                  ),
-                  elevatedButtonTheme: ElevatedButtonThemeData(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      textStyle: TextStyle(
-                        fontSize: ScreenUtil().setSp(18.h < 18 ? 18 : 18.h),
-                      ),
-                    ),
-                  ),
-                ),
+                theme: CustomThemeData().themeData,
                 // home: const MyHomePage(title: 'Flutter Demo Home Page'),
                 // home: ref.watch(finish) == false
                 //     ? const IntroductionScreens()

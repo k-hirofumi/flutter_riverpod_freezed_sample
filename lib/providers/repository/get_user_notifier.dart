@@ -22,12 +22,12 @@ class GetUserNotifier extends StateNotifier<AsyncValue<void>> {
       await Future.delayed(const Duration(seconds: 1));
 
       //データ取得
-      final data = await UserApi.getUserInfo();
+      // final data = await UserApi.getUserInfo();
 
-      //ステートの更新
-      ref
-          .read(userStateNotifierProvider.notifier) //リビルドに巻き込まれないように必ずreadを使用する
-          .setUser(id: data.id, name: data.name, email: data.email);
+      // //ステートの更新
+      // ref
+      //     .read(userStateNotifierProvider.notifier) //リビルドに巻き込まれないように必ずreadを使用する
+      //     .setUser(id: data.id, name: data.name, email: data.email);
       state = const AsyncValue.data(null);
     } catch (error, stackTrace) {
       state = AsyncValue.error(error, stackTrace);
