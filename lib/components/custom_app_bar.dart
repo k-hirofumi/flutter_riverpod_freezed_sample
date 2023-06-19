@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
-  DefaultAppBar({required this.title});
+  CustomAppBar({required this.title});
 
   @override
   Widget build(BuildContext context) {

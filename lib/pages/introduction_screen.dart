@@ -11,51 +11,63 @@ class IntroductionScreens extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var provider = ref.watch(finish.notifier);
-    return Scaffold(
-      appBar: AppBar(),
-      body: IntroductionScreen(
-          pages: [
-            PageViewModel(
-              title: 'Title of 1st Page',
-              body: 'Body of 1st Page',
-              image: buildImage("assets/images/moru1.png"),
-              //getPageDecoration, a method to customise the page style
-              decoration: getPageDecoration(),
-            ),
-            PageViewModel(
-              title: 'Title of 2nd Page',
-              body: 'Body of 2nd Page',
-              image: buildImage("assets/images/moru2.png"),
-              //getPageDecoration, a method to customise the page style
-              decoration: getPageDecoration(),
-            ),
-            PageViewModel(
-              title: 'Title of 3rd Page',
-              body: 'Body of 3rd Page',
-              image: buildImage("assets/images/moru3.png"),
-              //getPageDecoration, a method to customise the page style
-              decoration: getPageDecoration(),
-            ),
-          ],
-          onDone: () {
-            if (kDebugMode) {
-              // print("Done clicked");
-              // ref.read(finish.notifier).state = true;
-              provider.state = true;
-            }
-          },
-          //ClampingScrollPhysics prevent the scroll offset from exceeding the bounds of the content.
-          scrollPhysics: const ClampingScrollPhysics(),
-          showDoneButton: true,
-          showNextButton: true,
-          showSkipButton: true,
-          isBottomSafeArea: true,
-          skip:
-              const Text("Skip", style: TextStyle(fontWeight: FontWeight.w600)),
-          next: const Icon(Icons.forward),
-          done:
-              const Text("Done", style: TextStyle(fontWeight: FontWeight.w600)),
-          dotsDecorator: getDotsDecorator()),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      // navigatorKey: MainNavigator.navigatorKey,
+      // onGenerateRoute: (settings) {
+      //   var builder = MainNavigator.mainRoutes[settings.name]!;
+
+      //   return MaterialPageRoute(builder: builder, settings: settings);
+      // },
+      home: Scaffold(
+        appBar: AppBar(),
+        body: IntroductionScreen(
+            pages: [
+              PageViewModel(
+                title: 'Title of 1st Page',
+                body: 'Body of 1st Page',
+                image: buildImage("assets/images/moru1.png"),
+                //getPageDecoration, a method to customise the page style
+                decoration: getPageDecoration(),
+              ),
+              PageViewModel(
+                title: 'Title of 2nd Page',
+                body: 'Body of 2nd Page',
+                image: buildImage("assets/images/moru2.png"),
+                //getPageDecoration, a method to customise the page style
+                decoration: getPageDecoration(),
+              ),
+              PageViewModel(
+                title: 'Title of 3rd Page',
+                body: 'Body of 3rd Page',
+                image: buildImage("assets/images/moru3.png"),
+                //getPageDecoration, a method to customise the page style
+                decoration: getPageDecoration(),
+              ),
+            ],
+            onDone: () {
+              if (kDebugMode) {
+                // print("Done clicked");
+                // ref.read(finish.notifier).state = true;
+                provider.state = true;
+              }
+            },
+            //ClampingScrollPhysics prevent the scroll offset from exceeding the bounds of the content.
+            scrollPhysics: const ClampingScrollPhysics(),
+            showDoneButton: true,
+            showNextButton: true,
+            showSkipButton: true,
+            isBottomSafeArea: true,
+            skip: const Text("Skip",
+                style: TextStyle(fontWeight: FontWeight.w600)),
+            next: const Icon(Icons.forward),
+            done: const Text("Done",
+                style: TextStyle(fontWeight: FontWeight.w600)),
+            dotsDecorator: getDotsDecorator()),
+      ),
     );
   }
 

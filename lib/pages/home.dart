@@ -3,7 +3,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_flavor/components/alert_dialog.dart';
-import 'package:test_flavor/components/default_app_bar.dart';
+import 'package:test_flavor/components/custom_app_bar.dart';
+import 'package:test_flavor/navigators/home_navigator.dart';
+import 'package:test_flavor/navigators/main_navigator.dart';
 import 'package:test_flavor/pages/forth.dart';
 import 'package:test_flavor/pages/second.dart';
 import 'package:test_flavor/pages/third.dart';
@@ -18,14 +20,20 @@ class Home extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-        appBar: DefaultAppBar(
+        appBar: CustomAppBar(
           title: 'home',
         ),
         body: SafeArea(
           child: Center(
             child: Column(
               children: [
-                const Text('home'),
+                Text(
+                  'home',
+                  style: TextStyle(
+                    fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,
+                    color: Colors.red,
+                  ),
+                ),
 
                 ref.watch(getUserNotifierProvider).when(
                     data: (data) {
@@ -80,10 +88,7 @@ class Home extends ConsumerWidget {
                 //     child: const Text('send!2')),
 
                 ElevatedButton(
-                    onPressed: () async => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Second()),
-                        ),
+                    onPressed: () async => HomeNavigator.toSecond(),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.green),
                     ),
