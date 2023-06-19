@@ -4,6 +4,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_flavor/components/alert_dialog.dart';
 import 'package:test_flavor/components/default_app_bar.dart';
+import 'package:test_flavor/navigators/home_navigator.dart';
+import 'package:test_flavor/navigators/main_navigator.dart';
 import 'package:test_flavor/pages/forth.dart';
 import 'package:test_flavor/pages/second.dart';
 import 'package:test_flavor/pages/third.dart';
@@ -80,10 +82,7 @@ class Home extends ConsumerWidget {
                 //     child: const Text('send!2')),
 
                 ElevatedButton(
-                    onPressed: () async => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Second()),
-                        ),
+                    onPressed: () async => HomeNavigator.toSecond(),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.green),
                     ),
