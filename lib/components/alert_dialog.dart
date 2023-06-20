@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -12,7 +13,7 @@ class NetworkErrorDialog extends StatelessWidget {
 
     switch (errorCode) {
       case 900:
-        return AlertDialog(
+        return CupertinoAlertDialog(
           title: Text('Error'),
           content: Text('通信に失敗しました。時間をおいて再度お試しください。'),
           actions: <Widget>[
@@ -25,7 +26,7 @@ class NetworkErrorDialog extends StatelessWidget {
           ],
         );
       case 901:
-        return AlertDialog(
+        return CupertinoAlertDialog(
           title: Text('Error'),
           content: Text('通信に失敗しました。'),
           actions: <Widget>[
@@ -38,7 +39,7 @@ class NetworkErrorDialog extends StatelessWidget {
           ],
         );
       default:
-        return AlertDialog(
+        return CupertinoAlertDialog(
           title: Text('Error'),
           content: Text('通信に失敗しました。'),
           actions: <Widget>[

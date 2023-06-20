@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test_flavor/utils/custom_theme_data.dart';
-import 'package:test_flavor/components/lazy_load_index_stacl.dart';
+import 'package:test_flavor/components/lazy_load_index_stack.dart';
 import 'package:test_flavor/navigators/account_navigator.dart';
 import 'package:test_flavor/navigators/chat_navigator%20copy.dart';
 import 'package:test_flavor/navigators/home_navigator.dart';
