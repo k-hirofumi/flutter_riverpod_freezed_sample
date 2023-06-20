@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 
 class ErrorHandler {
   //エラーステータスを返す
-  static void handle(error) {
+  static void convertStatus(error) {
+    print('error');
     if (error is DioException) {
       if (error.response != null) {
         // エラーステータスが存在する場合
@@ -18,5 +21,11 @@ class ErrorHandler {
       // DioError以外の例外の場合
       throw 901;
     }
+  }
+
+  static FutureOr<T> handler<T>(error, stackTrce) {
+    //FIX_ME: ここにクラッシュ通知を実装すればAPIエラーとバリデーションエラーを拾える
+    convertStatus(error); //エラーハンドリング
+    throw '';
   }
 }

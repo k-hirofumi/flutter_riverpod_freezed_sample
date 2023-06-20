@@ -6,6 +6,7 @@ import 'package:test_flavor/components/alert_dialog.dart';
 import 'package:test_flavor/components/custom_app_bar.dart';
 import 'package:test_flavor/navigators/home_navigator.dart';
 import 'package:test_flavor/navigators/main_navigator.dart';
+import 'package:test_flavor/pages/fifth.dart';
 import 'package:test_flavor/pages/forth.dart';
 import 'package:test_flavor/pages/second.dart';
 import 'package:test_flavor/pages/third.dart';
@@ -34,7 +35,6 @@ class Home extends ConsumerWidget {
                     color: Colors.red,
                   ),
                 ),
-
                 ref.watch(getUserNotifierProvider).when(
                     data: (data) {
                       final user = ref.watch(userStateNotifierProvider);
@@ -71,13 +71,6 @@ class Home extends ConsumerWidget {
                       backgroundColor: MaterialStateProperty.all(Colors.red),
                     ),
                     child: const Text('refresh!')),
-                // ElevatedButton(
-                //     onPressed: () async => reload(),
-                //     style: ButtonStyle(
-                //       backgroundColor: MaterialStateProperty.all(Colors.pink),
-                //     ),
-                //     child: const Text('send!2')),
-
                 ElevatedButton(
                     onPressed: () async => HomeNavigator.toSecond(),
                     style: ButtonStyle(
@@ -103,6 +96,15 @@ class Home extends ConsumerWidget {
                       backgroundColor: MaterialStateProperty.all(Colors.purple),
                     ),
                     child: const Text('forth')),
+                ElevatedButton(
+                    onPressed: () async => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Fifth()),
+                        ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.purple),
+                    ),
+                    child: const Text('fifth')),
               ],
             ),
           ),
