@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:test_flavor/main.dart';
 import 'package:test_flavor/pages/home.dart';
 import 'package:test_flavor/pages/second.dart';
+import 'package:test_flavor/pages/web_view.dart';
 import 'package:test_flavor/pages/third.dart';
 
 class ChatNavigator {
@@ -29,6 +30,12 @@ class ChatNavigator {
   static void toSecond() {
     _rootNavigator.pushNamed(
       '/second',
+    );
+  }
+
+  static void toWebView() {
+    _rootNavigator.pushNamed(
+      '/webview',
     );
   }
 }

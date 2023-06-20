@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:test_flavor/main.dart';
 import 'package:test_flavor/pages/second.dart';
+import 'package:test_flavor/pages/web_view.dart';
 
 class MainNavigator {
   static final mainRoutes = <String, WidgetBuilder>{
     "/": (context) => const MainFrame(),
     "/second": (context) => Second(),
+    "/webview": (context) => WebViewPage(),
     // "/login": (context) => const LoginForm(),
   };
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
