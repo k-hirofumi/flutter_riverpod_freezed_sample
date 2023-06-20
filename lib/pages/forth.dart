@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_flavor/components/alert_dialog.dart';
+import 'package:test_flavor/navigators/home_navigator.dart';
 import 'package:test_flavor/providers/repository/get_item_info_notifier.dart';
 import 'package:test_flavor/providers/repository/update_user_notifier.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
@@ -30,17 +32,16 @@ class Forth extends ConsumerWidget {
               ElevatedButton(
                   onPressed: () async {
                     //更新完了後の処理
-                    nextAction() {
-                      showDialog(
+                    nextAction() async {
+                      await showDialog(
                         context: context,
                         barrierDismissible: false,
-                        builder: (ctx) => AlertDialog(
+                        builder: (ctx) => CupertinoAlertDialog(
                           title: const Text('更新完了'),
                           content: const Text('更新が完了しました。'),
                           actions: [
                             TextButton(
                               onPressed: () {
-                                Navigator.of(ctx).pop();
                                 Navigator.of(ctx).pop();
                               },
                               child: const Text('OK'),
@@ -48,6 +49,7 @@ class Forth extends ConsumerWidget {
                           ],
                         ),
                       );
+                      HomeNavigator.backToMain();
                     }
 
                     // ここで更新処理を実行
