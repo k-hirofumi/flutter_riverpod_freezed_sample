@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:test_flavor/entity/response/get_user_response.dart';
 import 'package:test_flavor/utils/dio_client.dart';
 import 'package:test_flavor/utils/error_handler.dart';
@@ -10,18 +12,7 @@ class UserApi {
         final validated = GetUserResponse.fromJson(value.data);
         return validated;
       },
-    ).onError(
-      (error, stackTrace) {
-        //FIX_ME ここにクラッシュ通知を実装すればAPIエラーとバリデーションエラーを拾える
-        ErrorHandler.handle(error); //エラーハンドリング
-        throw '';
-      },
-    );
-    // final test = new GetUserResponse(
-    //   id: 1,
-    //   name: 'getted',
-    // );
-    // return GetUserResponse.fromJson({});
+    ).onError(ErrorHandler.handler);
   }
 
   static Future<dynamic> updateUser() async {
@@ -30,9 +21,6 @@ class UserApi {
         .put('https://api.example.com/data')
         .then((value) {
       return value;
-    }).onError((error, stackTrace) {
-      ErrorHandler.handle(error); //エラーハンドリング
-      throw '';
-    });
+    }).onError(ErrorHandler.handler);
   }
 }

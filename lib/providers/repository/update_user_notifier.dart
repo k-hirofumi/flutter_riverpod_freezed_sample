@@ -18,7 +18,7 @@ class UpdateUserNotifier extends StateNotifier<void> {
     try {
       await Future.delayed(const Duration(seconds: 2));
       //データ取得
-      await UserApi.updateUser();
+      // await UserApi.updateUser();
     } catch (error, stackTrace) {
       throw error;
     }

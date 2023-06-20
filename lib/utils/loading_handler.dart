@@ -5,8 +5,8 @@ class LoadingHandler {
   LoadingHandler(this.context);
   BuildContext context;
 
-  void hide() {
-    Navigator.of(context).pop();
+  Future<void> hide() async {
+    return Navigator.of(context, rootNavigator: true).pop();
   }
 
   void show() {
@@ -20,29 +20,14 @@ class LoadingHandler {
       {Function? nextAction, String successMessage = '処理が完了しました。'}) async {
     show();
 
-    future.then((_) {
-      hide();
+    future.then((_) async {
+      await hide();
 
       if (nextAction != null) {
         nextAction();
       }
-      //FIX_ME showDialogを柔軟に設定する必要があれば、during処理が完了した後にshowDialogを呼び出すようにする
-      // showDialog(
-      //     context: context,
-      //     barrierDismissible: false,
-      //     builder: (ctx) => AlertDialog(
-      //           title: const Text('success'),
-      //           content: Text(successMessage),
-      //           actions: [
-      //             TextButton(
-      //                 onPressed: () {
-      //                   hide();
-      //                 },
-      //                 child: const Text('OK'))
-      //           ],
-      //         ));
-    }).onError((error, stackTrace) {
-      hide();
+    }).onError((error, stackTrace) async {
+      await hide();
       showDialog(
         context: context,
         barrierDismissible: false,
