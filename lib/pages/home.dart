@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test_flavor/components/alert_dialog.dart';
 import 'package:test_flavor/components/custom_app_bar.dart';
 import 'package:test_flavor/navigators/home_navigator.dart';
@@ -10,16 +11,32 @@ import 'package:test_flavor/pages/fifth.dart';
 import 'package:test_flavor/pages/forth.dart';
 import 'package:test_flavor/pages/second.dart';
 import 'package:test_flavor/pages/third.dart';
+import 'package:test_flavor/providers/repository/get_friend_notifier.dart';
 import 'package:test_flavor/providers/repository/get_user_notifier.dart';
 import 'package:test_flavor/providers/repository/update_user_notifier.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
 import 'package:test_flavor/utils/loading_handler.dart';
 
-class Home extends ConsumerWidget {
+class Home extends ConsumerStatefulWidget {
   const Home({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<Home> createState() => _HomeState();
+}
+
+class _HomeState extends ConsumerState<Home> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final overlay = LoadingHandler(context);
+      overlay.background(
+          ref.read(getUserNotifierProvider.notifier).fetchDataAndUpdateUser());
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar(
           title: 'home',
@@ -31,26 +48,27 @@ class Home extends ConsumerWidget {
                 Text(
                   'home',
                   style: TextStyle(
-                    fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,
+                    fontSize: 20.sp,
                     color: Colors.red,
                   ),
                 ),
-                ref.watch(getUserNotifierProvider).when(
+                ref.watch(getFriendNotifierProvider).when(
                     data: (data) {
-                      final user = ref.watch(userStateNotifierProvider);
+                      final user = ref.watch(getFriendNotifierProvider);
 
                       return Column(children: [
-                        Text(user.name ?? ''),
+                        // Text(user.name ?? ''),
+                        Text('test'),
                       ]);
                     },
                     loading: () => CircularProgressIndicator(),
                     error: (error, stackTrace) {
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        showDialog(
-                            context: context,
-                            builder: (_) =>
-                                NetworkErrorDialog(errorCode: error));
-                      });
+                      // WidgetsBinding.instance.addPostFrameCallback((_) {
+                      //   showDialog(
+                      //       context: context,
+                      //       builder: (_) =>
+                      //           NetworkErrorDialog(errorCode: error));
+                      // });
 
                       return Text('データが取得できませんでした。');
                     }),

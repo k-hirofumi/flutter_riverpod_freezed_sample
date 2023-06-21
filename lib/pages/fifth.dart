@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test_flavor/components/alert_dialog.dart';
 import 'package:test_flavor/components/success_dialog.dart';
 import 'package:test_flavor/entity/state/textbox_input_state.dart';
@@ -27,6 +28,7 @@ class Fifth extends ConsumerWidget {
           key: _formKey,
           child: Column(
             children: <Widget>[
+              Text('hello'),
               TextFormField(
                 initialValue: textboxInputState.title,
                 focusNode: _focusNode,
@@ -75,15 +77,34 @@ class Fifth extends ConsumerWidget {
                 child: Text('Submit'),
               ),
               ElevatedButton(
-                  onPressed: () {
-                    ref.invalidate(textBoxInputStateProvider);
-                    _formKey.currentState!.reset();
-                    _focusNode.requestFocus();
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                onPressed: () {
+                  ref.read(textBoxInputStateProvider.notifier).setTextboxInput(
+                        title: '',
+                        message: '',
+                        convertedMessage: '',
+                      );
+                  _formKey.currentState!.reset();
+                  _focusNode.requestFocus();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Text('Reset')),
+                  textStyle: TextStyle(
+                      fontSize: ScreenUtil().setSp(18.h < 18 ? 18 : 18.h)),
+                ),
+                child: const Text('Reset'),
+              ),
+              Text(
+                'hello',
+                style: TextStyle(
+                  fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,
+                  color: Colors.red,
+                ),
+              ),
+              Text('hello'),
+              Text('hello'),
             ],
           ),
         ),
