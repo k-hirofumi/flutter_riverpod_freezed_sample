@@ -23,89 +23,119 @@ class Fifth extends ConsumerWidget {
         ref.read(textBoxInputStateProvider.notifier);
     return Scaffold(
       appBar: AppBar(),
-      body: SafeArea(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: <Widget>[
-              Text('hello'),
-              TextFormField(
-                initialValue: textboxInputState.title,
-                focusNode: _focusNode,
-                maxLength: 10,
-                onChanged: (value) {
-                  textboxInputStateNotifier.setTitle(value);
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                initialValue: textboxInputState.message,
-                maxLength: 10,
-                onChanged: (value) {
-                  textboxInputStateNotifier.setMessage(value);
-                  textboxInputStateNotifier.convertMessageAndSave(value);
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
-              ),
-              //
-              //Consumerウィジェットを使うと、providerの値が変更されたときに親ウィジェットの再構築を防ぐことができる。
-              //（コンポーネント化しても同じことができる）
-              Consumer(
-                builder: (context, refx, child) {
-                  final message =
-                      refx.watch(textBoxInputStateProvider).convertedMessage;
-                  return Text(message);
-                },
-              ),
+      // resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                Text('hello'),
+                TextFormField(
+                  initialValue: textboxInputState.title,
+                  focusNode: _focusNode,
+                  maxLength: 10,
+                  onChanged: (value) {
+                    textboxInputStateNotifier.setTitle(value);
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  initialValue: textboxInputState.message,
+                  maxLength: 10,
+                  onChanged: (value) {
+                    textboxInputStateNotifier.setMessage(value);
+                    textboxInputStateNotifier.convertMessageAndSave(value);
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
+                ),
+                //
+                //Consumerウィジェットを使うと、providerの値が変更されたときに親ウィジェットの再構築を防ぐことができる。
+                //（コンポーネント化しても同じことができる）
+                Consumer(
+                  builder: (context, refx, child) {
+                    final message =
+                        refx.watch(textBoxInputStateProvider).convertedMessage;
+                    return Text(message);
+                  },
+                ),
 
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    // バリデーションが成功した後の処理
-                  }
-                },
-                child: Text('Submit'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  ref.read(textBoxInputStateProvider.notifier).setTextboxInput(
-                        title: '',
-                        message: '',
-                        convertedMessage: '',
-                      );
-                  _formKey.currentState!.reset();
-                  _focusNode.requestFocus();
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      // バリデーションが成功した後の処理
+                    }
+                  },
+                  child: Text('Submit'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    ref
+                        .read(textBoxInputStateProvider.notifier)
+                        .setTextboxInput(
+                          title: '',
+                          message: '',
+                          convertedMessage: '',
+                        );
+                    _formKey.currentState!.reset();
+                    _focusNode.requestFocus();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    textStyle: TextStyle(
+                        fontSize: ScreenUtil().setSp(18.h < 18 ? 18 : 18.h)),
                   ),
-                  textStyle: TextStyle(
-                      fontSize: ScreenUtil().setSp(18.h < 18 ? 18 : 18.h)),
+                  child: const Text('Reset'),
                 ),
-                child: const Text('Reset'),
-              ),
-              Text(
-                'hello',
-                style: TextStyle(
-                  fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,
-                  color: Colors.red,
+                Text(
+                  'hello',
+                  style: TextStyle(
+                    fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,
+                    color: Colors.red,
+                  ),
                 ),
-              ),
-              Text('hello'),
-              Text('hello'),
-            ],
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                TextFormField(
+                  initialValue: textboxInputState.message,
+                  maxLength: 10,
+                  onChanged: (value) {
+                    textboxInputStateNotifier.setMessage(value);
+                    textboxInputStateNotifier.convertMessageAndSave(value);
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
