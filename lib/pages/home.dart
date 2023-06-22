@@ -11,7 +11,7 @@ import 'package:test_flavor/pages/fifth.dart';
 import 'package:test_flavor/pages/forth.dart';
 import 'package:test_flavor/pages/second.dart';
 import 'package:test_flavor/pages/third.dart';
-import 'package:test_flavor/providers/repository/get_friend_notifier.dart';
+import 'package:test_flavor/providers/state/get_friend_info_state_notifier.dart';
 import 'package:test_flavor/providers/repository/get_user_notifier.dart';
 import 'package:test_flavor/providers/repository/update_user_notifier.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
@@ -52,9 +52,9 @@ class _HomeState extends ConsumerState<Home> {
                     color: Colors.red,
                   ),
                 ),
-                ref.watch(getFriendNotifierProvider).when(
+                ref.watch(getFriendStateNotifierProvider).when(
                     data: (data) {
-                      final user = ref.watch(getFriendNotifierProvider);
+                      final user = ref.watch(getFriendStateNotifierProvider);
 
                       return Column(children: [
                         // Text(user.name ?? ''),
@@ -74,8 +74,8 @@ class _HomeState extends ConsumerState<Home> {
                     }),
                 ElevatedButton(
                     onPressed: () => ref
-                        .watch(getUserNotifierProvider.notifier)
-                        .fetchDataAndUpdateUser(),
+                        .watch(getFriendStateNotifierProvider.notifier)
+                        .fetchFrined(),
                     child: const Text('setUserAsync')),
                 ElevatedButton(
                     onPressed: () => ref
@@ -84,7 +84,7 @@ class _HomeState extends ConsumerState<Home> {
                     child: const Text('setUser')),
                 ElevatedButton(
                     onPressed: () async =>
-                        ref.invalidate(userStateNotifierProvider),
+                        ref.invalidate(getFriendStateNotifierProvider),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.red),
                     ),

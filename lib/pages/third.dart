@@ -5,14 +5,14 @@ import 'package:test_flavor/components/alert_dialog.dart';
 import 'package:test_flavor/components/custom_app_bar.dart';
 import 'package:test_flavor/navigators/account_navigator.dart';
 import 'package:test_flavor/navigators/chat_navigator.dart';
-import 'package:test_flavor/providers/repository/get_item_info_notifier.dart';
+import 'package:test_flavor/providers/state/get_item_info_state_notifier.dart';
 
 class Third extends ConsumerWidget {
   const Third({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final itemProvider = ref.watch(getUserNotifierProvider);
+    final itemProvider = ref.watch(getItemStateNotifierProvider);
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Third',

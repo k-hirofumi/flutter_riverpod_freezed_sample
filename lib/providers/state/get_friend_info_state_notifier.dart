@@ -6,8 +6,8 @@ import 'package:test_flavor/entity/state/user_info_state.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
 import 'package:test_flavor/utils/error_handler.dart';
 
-class GetFriendNotifier extends StateNotifier<AsyncValue<void>> {
-  GetFriendNotifier(this.ref) : super(const AsyncValue.loading()) {
+class GetFriendInfoStateNotifier extends StateNotifier<AsyncValue<void>> {
+  GetFriendInfoStateNotifier(this.ref) : super(const AsyncValue.loading()) {
     fetchFrined();
   }
   final Ref ref;
@@ -31,8 +31,7 @@ class GetFriendNotifier extends StateNotifier<AsyncValue<void>> {
   }
 }
 
-final getFriendNotifierProvider =
-    StateNotifierProvider.autoDispose<GetFriendNotifier, AsyncValue<void>>(
-        (ref) {
-  return GetFriendNotifier(ref);
+final getFriendStateNotifierProvider = StateNotifierProvider.autoDispose<
+    GetFriendInfoStateNotifier, AsyncValue<void>>((ref) {
+  return GetFriendInfoStateNotifier(ref);
 });
