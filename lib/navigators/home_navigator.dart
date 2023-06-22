@@ -37,4 +37,14 @@ class HomeNavigator {
       '/fifth',
     );
   }
+
+  static Future<void> toFifthModal(BuildContext context) {
+    // return _navigatorState.pushNamed('/addNewPost');
+    return _rootNavigator.push(
+      MaterialPageRoute(
+        builder: (_) => Fifth(),
+        fullscreenDialog: true, // true だとモーダル遷移になる
+      ),
+    );
+  }
 }

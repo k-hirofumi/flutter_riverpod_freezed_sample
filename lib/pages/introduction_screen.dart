@@ -23,7 +23,10 @@ class IntroductionScreens extends ConsumerWidget {
       //   return MaterialPageRoute(builder: builder, settings: settings);
       // },
       home: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: Colors.white.withOpacity(0.0),
+          elevation: 0.0,
+        ),
         body: IntroductionScreen(
             pages: [
               PageViewModel(

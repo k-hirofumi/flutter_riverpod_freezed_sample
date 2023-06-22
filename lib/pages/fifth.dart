@@ -29,7 +29,7 @@ class Fifth extends ConsumerWidget {
       appBar: CustomAppBar(
         title: 'fifth',
       ),
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Form(
@@ -37,22 +37,38 @@ class Fifth extends ConsumerWidget {
             child: Column(
               children: <Widget>[
                 Text('hello'),
-                TextFormField(
-                  initialValue: textboxInputState.title,
-                  focusNode: _focusNode,
-                  maxLength: 10,
-                  onChanged: (value) {
-                    textboxInputStateNotifier.setTitle(value);
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter some text';
-                    }
-                    return null;
-                  },
+                Padding(
+                  padding: EdgeInsets.all(5),
+                  child: TextFormField(
+                    initialValue: textboxInputState.title,
+                    focusNode: _focusNode,
+                    decoration: InputDecoration(
+                      labelText: 'Input',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      ),
+                    ),
+                    keyboardType: TextInputType.text,
+                    maxLength: 10,
+                    onChanged: (value) {
+                      textboxInputStateNotifier.setTitle(value);
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return '入力がありません。';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
                 TextFormField(
                   initialValue: textboxInputState.message,
+                  decoration: InputDecoration(
+                    labelText: 'Input',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    ),
+                  ),
                   maxLength: 10,
                   onChanged: (value) {
                     textboxInputStateNotifier.setMessage(value);

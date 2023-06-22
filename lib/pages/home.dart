@@ -38,10 +38,11 @@ class _HomeState extends ConsumerState<Home> {
   Widget build(BuildContext context) {
     print('home');
     return Scaffold(
-        appBar: CustomAppBar(
-          title: 'home',
-        ),
-        body: SafeArea(
+      appBar: CustomAppBar(
+        title: 'home',
+      ),
+      body: SingleChildScrollView(
+        child: SafeArea(
           child: Center(
             child: Column(
               children: [
@@ -120,10 +121,18 @@ class _HomeState extends ConsumerState<Home> {
                       backgroundColor: MaterialStateProperty.all(Colors.purple),
                     ),
                     child: const Text('fifth')),
+                ElevatedButton(
+                    onPressed: () async => HomeNavigator.toFifthModal(context),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.purple),
+                    ),
+                    child: const Text('fifth_modal')),
               ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 
