@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test_flavor/components/alert_dialog.dart';
 import 'package:test_flavor/components/custom_app_bar.dart';
 import 'package:test_flavor/navigators/home_navigator.dart';
@@ -37,6 +36,7 @@ class _HomeState extends ConsumerState<Home> {
 
   @override
   Widget build(BuildContext context) {
+    print('home');
     return Scaffold(
         appBar: CustomAppBar(
           title: 'home',
@@ -48,7 +48,7 @@ class _HomeState extends ConsumerState<Home> {
                 Text(
                   'home',
                   style: TextStyle(
-                    fontSize: 20.sp,
+                    fontSize: 20,
                     color: Colors.red,
                   ),
                 ),
@@ -115,10 +115,7 @@ class _HomeState extends ConsumerState<Home> {
                     ),
                     child: const Text('forth')),
                 ElevatedButton(
-                    onPressed: () async => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Fifth()),
-                        ),
+                    onPressed: () async => HomeNavigator.toFifth(),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.purple),
                     ),
