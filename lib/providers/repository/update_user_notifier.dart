@@ -20,7 +20,7 @@ class UpdateUserNotifier extends StateNotifier<void> {
       //データ取得
       // await UserApi.updateUser();
     } catch (error, stackTrace) {
-      throw error;
+      rethrow;
     }
   }
 }

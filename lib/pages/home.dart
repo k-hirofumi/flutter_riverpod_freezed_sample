@@ -10,16 +10,33 @@ import 'package:test_flavor/pages/fifth.dart';
 import 'package:test_flavor/pages/forth.dart';
 import 'package:test_flavor/pages/second.dart';
 import 'package:test_flavor/pages/third.dart';
+import 'package:test_flavor/providers/state/get_friend_info_state_notifier.dart';
 import 'package:test_flavor/providers/repository/get_user_notifier.dart';
 import 'package:test_flavor/providers/repository/update_user_notifier.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
 import 'package:test_flavor/utils/loading_handler.dart';
 
-class Home extends ConsumerWidget {
+class Home extends ConsumerStatefulWidget {
   const Home({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<Home> createState() => _HomeState();
+}
+
+class _HomeState extends ConsumerState<Home> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final overlay = LoadingHandler(context);
+      overlay.background(
+          ref.read(getUserNotifierProvider.notifier).fetchDataAndUpdateUser());
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print('home');
     return Scaffold(
         appBar: CustomAppBar(
           title: 'home',
@@ -31,33 +48,34 @@ class Home extends ConsumerWidget {
                 Text(
                   'home',
                   style: TextStyle(
-                    fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,
+                    fontSize: 20,
                     color: Colors.red,
                   ),
                 ),
-                ref.watch(getUserNotifierProvider).when(
+                ref.watch(getFriendStateNotifierProvider).when(
                     data: (data) {
-                      final user = ref.watch(userStateNotifierProvider);
+                      final user = ref.watch(getFriendStateNotifierProvider);
 
                       return Column(children: [
-                        Text(user.name ?? ''),
+                        // Text(user.name ?? ''),
+                        Text('test'),
                       ]);
                     },
                     loading: () => CircularProgressIndicator(),
                     error: (error, stackTrace) {
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        showDialog(
-                            context: context,
-                            builder: (_) =>
-                                NetworkErrorDialog(errorCode: error));
-                      });
+                      // WidgetsBinding.instance.addPostFrameCallback((_) {
+                      //   showDialog(
+                      //       context: context,
+                      //       builder: (_) =>
+                      //           NetworkErrorDialog(errorCode: error));
+                      // });
 
                       return Text('データが取得できませんでした。');
                     }),
                 ElevatedButton(
                     onPressed: () => ref
-                        .watch(getUserNotifierProvider.notifier)
-                        .fetchDataAndUpdateUser(),
+                        .watch(getFriendStateNotifierProvider.notifier)
+                        .fetchFrined(),
                     child: const Text('setUserAsync')),
                 ElevatedButton(
                     onPressed: () => ref
@@ -66,7 +84,7 @@ class Home extends ConsumerWidget {
                     child: const Text('setUser')),
                 ElevatedButton(
                     onPressed: () async =>
-                        ref.invalidate(userStateNotifierProvider),
+                        ref.invalidate(getFriendStateNotifierProvider),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.red),
                     ),
@@ -97,10 +115,7 @@ class Home extends ConsumerWidget {
                     ),
                     child: const Text('forth')),
                 ElevatedButton(
-                    onPressed: () async => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Fifth()),
-                        ),
+                    onPressed: () async => HomeNavigator.toFifth(),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.purple),
                     ),

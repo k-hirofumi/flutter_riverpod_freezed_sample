@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
@@ -30,18 +29,18 @@ class Second extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 width: double.infinity,
-                height: 230.h,
+                height: 230,
                 child: Stack(
                   children: [
                     Shake(front: true),
                     Positioned(
-                      top: 50.h,
-                      left: 40.w,
+                      top: 50,
+                      left: 40,
                       child: Strech(front: true),
                     ),
                     Positioned(
-                      top: 100.h,
-                      left: 80.w,
+                      top: 100,
+                      left: 80,
                       child: Shake(front: true),
                     ),
                     Positioned(
@@ -50,13 +49,13 @@ class Second extends StatelessWidget {
                       child: Strech(front: false),
                     ),
                     Positioned(
-                      top: 50.h,
-                      right: 40.w,
+                      top: 50,
+                      right: 40,
                       child: Shake(front: false),
                     ),
                     Positioned(
-                      top: 100.h,
-                      right: 80.w,
+                      top: 100,
+                      right: 80,
                       child: Shake(front: false),
                     ),
                   ],
@@ -181,8 +180,8 @@ class Atached extends StatelessWidget {
       //   color: Colors.black,
       //   borderRadius: BorderRadius.circular(20),
       // ),
-      height: 120.h,
-      width: 120.w,
+      height: 120,
+      width: 120,
       child: FittedBox(
         fit: BoxFit.cover,
         child: Stack(

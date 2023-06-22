@@ -5,8 +5,9 @@ import 'package:test_flavor/entity/state/user_info_state.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
 import 'package:test_flavor/utils/error_handler.dart';
 
-class GetItemNotifier extends StateNotifier<AsyncValue<ItemInfoStateResponse>> {
-  GetItemNotifier(this.ref) : super(const AsyncValue.loading()) {
+class GetItemInfoStateNotifier
+    extends StateNotifier<AsyncValue<ItemInfoStateResponse>> {
+  GetItemInfoStateNotifier(this.ref) : super(const AsyncValue.loading()) {
     fetchItem();
   }
   final Ref ref;
@@ -39,7 +40,7 @@ class GetItemNotifier extends StateNotifier<AsyncValue<ItemInfoStateResponse>> {
   }
 }
 
-final getUserNotifierProvider = StateNotifierProvider.autoDispose<
-    GetItemNotifier, AsyncValue<ItemInfoStateResponse>>((ref) {
-  return GetItemNotifier(ref);
+final getItemStateNotifierProvider = StateNotifierProvider.autoDispose<
+    GetItemInfoStateNotifier, AsyncValue<ItemInfoStateResponse>>((ref) {
+  return GetItemInfoStateNotifier(ref);
 });

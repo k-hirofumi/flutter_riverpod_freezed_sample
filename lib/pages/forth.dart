@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_flavor/components/alert_dialog.dart';
 import 'package:test_flavor/components/success_dialog.dart';
 import 'package:test_flavor/navigators/home_navigator.dart';
-import 'package:test_flavor/providers/repository/get_item_info_notifier.dart';
+import 'package:test_flavor/providers/state/get_item_info_state_notifier.dart';
 import 'package:test_flavor/providers/repository/update_user_notifier.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
 import 'package:test_flavor/utils/loading_handler.dart';
@@ -15,7 +15,7 @@ class Forth extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final itemProvider = ref.watch(getUserNotifierProvider);
+    final itemProvider = ref.watch(getItemStateNotifierProvider);
     final overlay = LoadingHandler(context);
     return Scaffold(
       appBar: AppBar(),

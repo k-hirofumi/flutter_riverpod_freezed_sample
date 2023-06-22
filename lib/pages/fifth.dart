@@ -2,89 +2,162 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_flavor/components/alert_dialog.dart';
+import 'package:test_flavor/components/custom_app_bar.dart';
+import 'package:test_flavor/components/custom_button.dart';
 import 'package:test_flavor/components/success_dialog.dart';
 import 'package:test_flavor/entity/state/textbox_input_state.dart';
 import 'package:test_flavor/navigators/home_navigator.dart';
-import 'package:test_flavor/providers/repository/get_item_info_notifier.dart';
+import 'package:test_flavor/providers/state/get_item_info_state_notifier.dart';
 import 'package:test_flavor/providers/repository/update_user_notifier.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
+import 'package:test_flavor/utils/calc_component_size.dart';
 import 'package:test_flavor/utils/loading_handler.dart';
 import 'package:test_flavor/utils/show_timer_dialog.dart';
 
 class Fifth extends ConsumerWidget {
   Fifth({super.key});
-  final _formKey = GlobalKey<FormState>();
-  FocusNode _focusNode = FocusNode();
+  static final _formKey = GlobalKey<FormState>();
+  static final _focusNode = FocusNode();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print('fifth');
+
     final textboxInputState = ref.read(textBoxInputStateProvider);
     final textboxInputStateNotifier =
         ref.read(textBoxInputStateProvider.notifier);
     return Scaffold(
-      appBar: AppBar(),
-      body: SafeArea(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                initialValue: textboxInputState.title,
-                focusNode: _focusNode,
-                maxLength: 10,
-                onChanged: (value) {
-                  textboxInputStateNotifier.setTitle(value);
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                initialValue: textboxInputState.message,
-                maxLength: 10,
-                onChanged: (value) {
-                  textboxInputStateNotifier.setMessage(value);
-                  textboxInputStateNotifier.convertMessageAndSave(value);
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
-              ),
-              //
-              //Consumerウィジェットを使うと、providerの値が変更されたときに親ウィジェットの再構築を防ぐことができる。
-              //（コンポーネント化しても同じことができる）
-              Consumer(
-                builder: (context, refx, child) {
-                  final message =
-                      refx.watch(textBoxInputStateProvider).convertedMessage;
-                  return Text(message);
-                },
-              ),
-
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    // バリデーションが成功した後の処理
-                  }
-                },
-                child: Text('Submit'),
-              ),
-              ElevatedButton(
+      appBar: CustomAppBar(
+        title: 'fifth',
+      ),
+      resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                Text('hello'),
+                TextFormField(
+                  initialValue: textboxInputState.title,
+                  focusNode: _focusNode,
+                  maxLength: 10,
+                  onChanged: (value) {
+                    textboxInputStateNotifier.setTitle(value);
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  initialValue: textboxInputState.message,
+                  maxLength: 10,
+                  onChanged: (value) {
+                    textboxInputStateNotifier.setMessage(value);
+                    textboxInputStateNotifier.convertMessageAndSave(value);
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
+                ),
+                //
+                //Consumerウィジェットを使うと、providerの値が変更されたときに親ウィジェットの再構築を防ぐことができる。
+                //（コンポーネント化しても同じことができる）
+                Consumer(
+                  builder: (context, refx, child) {
+                    final message =
+                        refx.watch(textBoxInputStateProvider).convertedMessage;
+                    return Text(message);
+                  },
+                ),
+                //
+                //Builderウィジェットを使うと、画面のサイズ変更などで再描画が走った時に親ウィジェットの再構築を防ぐことができる。
+                //（コンポーネント化しても同じことができる）
+                // Builder(
+                //   builder: (cnt) {
+                //     MediaQuery.of(cnt).size.width;
+                //     return ElevatedButton(
+                //       onPressed: () {
+                //         if (_formKey.currentState!.validate()) {
+                //           // バリデーションが成功した後の処理
+                //         }
+                //       },
+                //       child: Text('Submit'),
+                //     );
+                //   },
+                // ),
+                CustomButton(
+                  onPress: () {
+                    if (_formKey.currentState!.validate()) {
+                      // バリデーションが成功した後の処理
+                    }
+                  },
+                  color: Colors.red,
+                  child: Text('Submit'),
+                ),
+                ElevatedButton(
                   onPressed: () {
-                    ref.invalidate(textBoxInputStateProvider);
+                    ref
+                        .read(textBoxInputStateProvider.notifier)
+                        .setTextboxInput(
+                          title: '',
+                          message: '',
+                          convertedMessage: '',
+                        );
                     _formKey.currentState!.reset();
                     _focusNode.requestFocus();
                   },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                  // style: ElevatedButton.styleFrom(
+                  //   backgroundColor: Colors.red,
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(10),
+                  //   ),
+                  //   textStyle: TextStyle(
+                  //       fontSize: ScreenUtil().setSp(18.h < 18 ? 18 : 18.h)),
+                  // ),
+                  child: const Text('Reset'),
+                ),
+                Text(
+                  'hello',
+                  style: TextStyle(
+                    fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,
+                    color: Colors.red,
                   ),
-                  child: const Text('Reset')),
-            ],
+                ),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                Text('hello'),
+                TextFormField(
+                  initialValue: textboxInputState.message,
+                  maxLength: 10,
+                  onChanged: (value) {
+                    textboxInputStateNotifier.setMessage(value);
+                    textboxInputStateNotifier.convertMessageAndSave(value);
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

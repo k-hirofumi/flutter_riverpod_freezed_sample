@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:test_flavor/main.dart';
-import 'package:test_flavor/providers/providers.dart';
+import 'package:test_flavor/providers/app_providers.dart';
 
 class IntroductionScreens extends ConsumerWidget {
   const IntroductionScreens({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var provider = ref.watch(finish.notifier);
+    var provider = ref.watch(finishIntroductionProvider.notifier);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
