@@ -6,7 +6,7 @@ import 'package:test_flavor/components/alert_dialog.dart';
 import 'package:test_flavor/components/custom_app_bar.dart';
 import 'package:test_flavor/navigators/home_navigator.dart';
 import 'package:test_flavor/navigators/main_navigator.dart';
-import 'package:test_flavor/pages/fifth.dart';
+import 'package:test_flavor/pages/text_area.dart';
 import 'package:test_flavor/pages/forth.dart';
 import 'package:test_flavor/pages/second.dart';
 import 'package:test_flavor/pages/third.dart';
@@ -39,7 +39,7 @@ class _HomeState extends ConsumerState<Home> {
     print('home');
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'home',
+        title: 'home_title',
       ),
       body: SingleChildScrollView(
         child: SafeArea(
@@ -116,17 +116,38 @@ class _HomeState extends ConsumerState<Home> {
                     ),
                     child: const Text('forth')),
                 ElevatedButton(
-                    onPressed: () async => HomeNavigator.toFifth(),
+                    onPressed: () async => HomeNavigator.toTextArea(),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.purple),
                     ),
-                    child: const Text('fifth')),
+                    child: const Text('text_area')),
                 ElevatedButton(
-                    onPressed: () async => HomeNavigator.toFifthModal(context),
+                    onPressed: () async =>
+                        HomeNavigator.toTextAreaModal(context),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.purple),
                     ),
-                    child: const Text('fifth_modal')),
+                    child: const Text('text_area_modal')),
+                ElevatedButton(
+                    onPressed: () async =>
+                        HomeNavigator.toTextAreaBottomSheet(context),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.purple),
+                    ),
+                    child: const Text('text_area_bottom_sheet')),
+                ElevatedButton(
+                    onPressed: () async => HomeNavigator.toTabPage(),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.pink),
+                    ),
+                    child: Text('tab_page')),
+                ElevatedButton(
+                    onPressed: () async =>
+                        HomeNavigator.toTabPageBottomSheet(context),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.purple),
+                    ),
+                    child: const Text('tab_page_bottom_sheet')),
               ],
             ),
           ),

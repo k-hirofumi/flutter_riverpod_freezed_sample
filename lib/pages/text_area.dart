@@ -14,8 +14,8 @@ import 'package:test_flavor/utils/calc_component_size.dart';
 import 'package:test_flavor/utils/loading_handler.dart';
 import 'package:test_flavor/utils/show_timer_dialog.dart';
 
-class Fifth extends ConsumerWidget {
-  Fifth({super.key});
+class TextArea extends ConsumerWidget {
+  TextArea({super.key});
   static final _formKey = GlobalKey<FormState>();
   static final _focusNode = FocusNode();
   @override
@@ -28,6 +28,7 @@ class Fifth extends ConsumerWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'fifth',
+        hasExitButton: true,
       ),
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(

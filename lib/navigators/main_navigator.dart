@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_flavor/main.dart';
-import 'package:test_flavor/pages/fifth.dart';
+import 'package:test_flavor/pages/tab_page.dart';
+import 'package:test_flavor/pages/text_area.dart';
 import 'package:test_flavor/pages/second.dart';
 import 'package:test_flavor/pages/web_view.dart';
 
@@ -9,7 +10,8 @@ class MainNavigator {
     "/": (context) => const MainFrame(),
     "/second": (context) => Second(),
     "/webview": (context) => WebViewPage(),
-    "/fifth": (context) => Fifth(),
+    "/text_area": (context) => TextArea(),
+    "/tab_page": (context) => TabPage(),
     // "/login": (context) => const LoginForm(),
   };
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
