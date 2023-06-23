@@ -38,6 +38,12 @@ class HomeNavigator {
     );
   }
 
+  static void toPageViewPage() {
+    _rootNavigator.pushNamed(
+      '/page_view',
+    );
+  }
+
   static Future<void> toFifthModal(BuildContext context) {
     // return _navigatorState.pushNamed('/addNewPost');
     return _rootNavigator.push(

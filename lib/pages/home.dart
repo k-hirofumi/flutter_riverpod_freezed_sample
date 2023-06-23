@@ -127,6 +127,12 @@ class _HomeState extends ConsumerState<Home> {
                       backgroundColor: MaterialStateProperty.all(Colors.purple),
                     ),
                     child: const Text('fifth_modal')),
+                ElevatedButton(
+                    onPressed: () async => HomeNavigator.toPageViewPage(),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.orange),
+                    ),
+                    child: const Text('page_view')),
               ],
             ),
           ),
