@@ -45,6 +45,12 @@ class HomeNavigator {
     );
   }
 
+  static void toCarouselPage() {
+    _rootNavigator.pushNamed(
+      '/carousel_page',
+    );
+  }
+
   static Future<void> toTextAreaModal(BuildContext context) {
     // return _navigatorState.pushNamed('/addNewPost');
     return _rootNavigator.push(
