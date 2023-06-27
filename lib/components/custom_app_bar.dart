@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_flavor/utils/calc_component_size.dart';
+import 'package:test_flavor/utils/size_config.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -11,7 +11,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     print('appbar');
-    CalcComponentSize.setDeviceSize(context);
+    SizeConfig.init(context);
     return AppBar(
       backgroundColor: Colors.white.withOpacity(0.0),
       elevation: 0.0,
@@ -24,15 +24,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           : null,
       title: Text(
         title,
-        style: TextStyle(
-            fontSize: CalcComponentSize.heightMagnification(20),
-            color: Colors.black),
+        style: TextStyle(fontSize: SizeConfig.vh(20), color: Colors.black),
       ),
       centerTitle: true,
       actions: [
         IconButton(
           icon: Icon(Icons.add),
-          iconSize: CalcComponentSize.heightMagnification(25),
+          iconSize: SizeConfig.vh(25),
           color: Colors.black,
           onPressed: () {
             // ボタンが押された時の処理
@@ -40,7 +38,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         IconButton(
           icon: Icon(Icons.remove),
-          iconSize: CalcComponentSize.heightMagnification(25),
+          iconSize: SizeConfig.vh(25),
           color: Colors.black,
           onPressed: () {
             // ボタンが押された時の処理
@@ -54,6 +52,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight -
       40 +
-      CalcComponentSize.heightMagnification(25) +
+      SizeConfig.vh(25) +
       (bottom?.preferredSize.height ?? 0));
 }

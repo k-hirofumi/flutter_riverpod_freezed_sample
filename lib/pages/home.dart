@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_flavor/components/alert_dialog.dart';
 import 'package:test_flavor/components/custom_app_bar.dart';
+import 'package:test_flavor/components/custom_button.dart';
 import 'package:test_flavor/navigators/home_navigator.dart';
 import 'package:test_flavor/navigators/main_navigator.dart';
 import 'package:test_flavor/pages/text_area.dart';
@@ -73,7 +74,7 @@ class _HomeState extends ConsumerState<Home> {
 
                       return Text('データが取得できませんでした。');
                     }),
-                ElevatedButton(
+                CustomButton(
                     onPressed: () => ref
                         .watch(getFriendStateNotifierProvider.notifier)
                         .fetchFrined(),

@@ -10,7 +10,7 @@ import 'package:test_flavor/navigators/home_navigator.dart';
 import 'package:test_flavor/providers/state/get_item_info_state_notifier.dart';
 import 'package:test_flavor/providers/repository/update_user_notifier.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
-import 'package:test_flavor/utils/calc_component_size.dart';
+import 'package:test_flavor/utils/size_config.dart';
 import 'package:test_flavor/utils/loading_handler.dart';
 import 'package:test_flavor/utils/show_timer_dialog.dart';
 
@@ -109,7 +109,7 @@ class TextArea extends ConsumerWidget {
                 //   },
                 // ),
                 CustomButton(
-                  onPress: () {
+                  onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       // バリデーションが成功した後の処理
                     }
