@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test_flavor/utils/calc_component_size.dart';
+import 'package:test_flavor/utils/size_config.dart';
 import 'package:test_flavor/utils/custom_theme_data.dart';
 import 'package:test_flavor/components/lazy_load_index_stack.dart';
 import 'package:test_flavor/navigators/account_navigator.dart';

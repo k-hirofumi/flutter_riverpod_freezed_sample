@@ -30,7 +30,7 @@ class LoadingHandler {
       await hide();
       showDialog(
         context: context,
-        barrierDismissible: false,
+        barrierDismissible: true,
         builder: (ctx) => NetworkErrorDialog(errorCode: error),
       );
     });
@@ -42,7 +42,7 @@ class LoadingHandler {
     }).onError((error, stackTrace) {
       showDialog(
         context: context,
-        barrierDismissible: false,
+        barrierDismissible: true,
         builder: (ctx) => NetworkErrorDialog(errorCode: error),
       );
     });
@@ -53,7 +53,7 @@ class _FullScreenLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: const BoxDecoration(color: Color.fromRGBO(0, 0, 0, 0.5)),
+        decoration: const BoxDecoration(color: Color.fromRGBO(0, 0, 0, 0.1)),
         child: const Center(child: CircularProgressIndicator()));
   }
 }

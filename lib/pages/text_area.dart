@@ -10,12 +10,12 @@ import 'package:test_flavor/navigators/home_navigator.dart';
 import 'package:test_flavor/providers/state/get_item_info_state_notifier.dart';
 import 'package:test_flavor/providers/repository/update_user_notifier.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
-import 'package:test_flavor/utils/calc_component_size.dart';
+import 'package:test_flavor/utils/size_config.dart';
 import 'package:test_flavor/utils/loading_handler.dart';
 import 'package:test_flavor/utils/show_timer_dialog.dart';
 
-class Fifth extends ConsumerWidget {
-  Fifth({super.key});
+class TextArea extends ConsumerWidget {
+  TextArea({super.key});
   static final _formKey = GlobalKey<FormState>();
   static final _focusNode = FocusNode();
   @override
@@ -28,6 +28,7 @@ class Fifth extends ConsumerWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'fifth',
+        hasExitButton: true,
       ),
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
@@ -108,7 +109,7 @@ class Fifth extends ConsumerWidget {
                 //   },
                 // ),
                 CustomButton(
-                  onPress: () {
+                  onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       // バリデーションが成功した後の処理
                     }

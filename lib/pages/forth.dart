@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_flavor/components/alert_dialog.dart';
+import 'package:test_flavor/components/custom_dialog.dart';
 import 'package:test_flavor/components/success_dialog.dart';
 import 'package:test_flavor/navigators/home_navigator.dart';
 import 'package:test_flavor/providers/state/get_item_info_state_notifier.dart';
@@ -34,7 +35,7 @@ class Forth extends ConsumerWidget {
               ElevatedButton(
                   onPressed: () async {
                     //更新完了後の処理
-                    nextAction() async {
+                    void nextAction() async {
                       // await showDialog(
                       //     context: context,
                       //     barrierDismissible: true,
@@ -45,32 +46,25 @@ class Forth extends ConsumerWidget {
                     }
 
                     // ここで更新処理を実行
-                    await showDialog(
+                    showDialog(
                       context: context,
-                      barrierDismissible: false,
-                      builder: (ctx) => CupertinoAlertDialog(
-                        title: const Text('確認'),
+                      barrierDismissible: true,
+                      builder: (ctx) => CustomDialog(
+                        title: '確認',
                         content: const Text('更新しますか？'),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(ctx).pop();
-                              overlay.overlay(
-                                ref
-                                    .watch(updateUserNotifierProvider.notifier)
-                                    .updateUser(),
-                                nextAction: nextAction,
-                              );
-                            },
-                            child: const Text('OK'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(ctx).pop();
-                            },
-                            child: const Text('NO'),
-                          ),
-                        ],
+                        actionLabel: 'はい',
+                        //実行時の処理
+                        onAction: () {
+                          overlay.overlay(
+                            ref
+                                .watch(updateUserNotifierProvider.notifier)
+                                .updateUser(),
+                            nextAction: nextAction,
+                          );
+                        },
+                        cancelLabel: 'いいえ',
+                        //実行時の処理キャンセル時の処理
+                        onCancel: () {},
                       ),
                     );
                   },

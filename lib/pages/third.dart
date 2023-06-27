@@ -15,6 +15,7 @@ class Third extends ConsumerWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Third',
+        hasExitButton: true,
       ),
       body: SafeArea(
         child: itemProvider.when(
