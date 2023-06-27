@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_flavor/main.dart';
+import 'package:test_flavor/pages/selector.dart';
 import 'package:test_flavor/pages/tab_page.dart';
 import 'package:test_flavor/pages/text_area.dart';
 import 'package:test_flavor/pages/home.dart';
@@ -48,6 +49,12 @@ class HomeNavigator {
   static void toCarouselPage() {
     _rootNavigator.pushNamed(
       '/carousel_page',
+    );
+  }
+
+  static void toSelectorPage() {
+    _rootNavigator.pushNamed(
+      '/selector_page',
     );
   }
 

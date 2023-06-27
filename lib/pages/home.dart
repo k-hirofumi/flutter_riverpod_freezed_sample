@@ -155,6 +155,12 @@ class _HomeState extends ConsumerState<Home> {
                       backgroundColor: MaterialStateProperty.all(Colors.orange),
                     ),
                     child: const Text('carousel_page')),
+                ElevatedButton(
+                    onPressed: () async => HomeNavigator.toSelectorPage(),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.black),
+                    ),
+                    child: const Text('selector_page')),
               ],
             ),
           ),

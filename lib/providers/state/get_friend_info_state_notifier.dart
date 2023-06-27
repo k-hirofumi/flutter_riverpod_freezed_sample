@@ -1,12 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_flavor/api/user_api.dart';
+import 'package:test_flavor/entity/state/friend_info_state_response.dart';
 import 'package:test_flavor/entity/state/item_info_state_response.dart';
 import 'package:test_flavor/entity/state/user_info_state.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
 import 'package:test_flavor/utils/error_handler.dart';
 
-class GetFriendInfoStateNotifier extends StateNotifier<AsyncValue<void>> {
+class GetFriendInfoStateNotifier
+    extends StateNotifier<AsyncValue<FriendInfoStateResponse>> {
   GetFriendInfoStateNotifier(this.ref) : super(const AsyncValue.loading()) {
     fetchFrined();
   }
@@ -24,7 +26,8 @@ class GetFriendInfoStateNotifier extends StateNotifier<AsyncValue<void>> {
       // ref
       //     .read(userStateNotifierProvider.notifier) //リビルドに巻き込まれないように必ずreadを使用する
       //     .setUser(id: data.id, name: data.name, email: data.email);
-      state = const AsyncValue.data(null);
+      final data = FriendInfoStateResponse(id: 123, name: 'test');
+      state = AsyncValue.data(data);
     } catch (error, stackTrace) {
       state = AsyncValue.error(error, stackTrace);
     }

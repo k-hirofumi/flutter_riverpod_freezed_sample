@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_flavor/main.dart';
 import 'package:test_flavor/pages/carousel.dart';
+import 'package:test_flavor/pages/selector.dart';
 import 'package:test_flavor/pages/tab_page.dart';
 import 'package:test_flavor/pages/text_area.dart';
 import 'package:test_flavor/pages/second.dart';
@@ -14,6 +15,7 @@ class MainNavigator {
     "/text_area": (context) => TextArea(),
     "/tab_page": (context) => TabPage(),
     "/carousel_page": (context) => CarouselPage(),
+    "/selector_page": (context) => SelectorPage(),
     // "/login": (context) => const LoginForm(),
   };
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();

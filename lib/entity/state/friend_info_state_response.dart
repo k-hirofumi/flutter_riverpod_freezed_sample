@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'friend_info_state_response.freezed.dart';
+part 'friend_info_state_response.g.dart';
 
 @freezed
 class FriendInfoStateResponse with _$FriendInfoStateResponse {
