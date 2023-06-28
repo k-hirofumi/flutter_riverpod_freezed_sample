@@ -6,31 +6,40 @@ import 'package:test_flavor/navigators/account_navigator.dart';
 import 'package:test_flavor/navigators/chat_navigator.dart';
 import 'package:test_flavor/providers/state/get_item_info_state_notifier.dart';
 import 'package:test_flavor/providers/state/get_post_list_state_notifier.dart';
+import 'package:test_flavor/utils/loading_handler.dart';
 
-class SelectorPage extends ConsumerWidget {
-  const SelectorPage({super.key});
+class PostListPage extends ConsumerWidget {
+  const PostListPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final postListProvider = ref.watch(getPostListStateNotifierProvider);
+    final postListProviderNortifier =
+        ref.watch(getPostListStateNotifierProvider.notifier);
+    Future<void> _refresh() async {
+      await Future.delayed(
+        const Duration(seconds: 1),
+      );
+      final overlay = LoadingHandler(context);
+      await overlay.background(postListProviderNortifier.refetchPostList());
+    }
+
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'selector',
+        title: 'post_list',
         hasExitButton: true,
       ),
       body: SafeArea(
         child: postListProvider.when(
           data: (postList) => Center(
-            child: Column(
-              children: [
-                const Text('selector'),
-                for (var post in postList) Text(post.post),
-                ElevatedButton(
-                    onPressed: () => ref
-                        .read(getPostListStateNotifierProvider.notifier)
-                        .fetchPostList(),
-                    child: Text('add!'))
-              ],
+            child: RefreshIndicator(
+              onRefresh: _refresh,
+              child: ListView.builder(
+                itemCount: postList.length,
+                itemBuilder: (context, index) {
+                  return Text(postList[index].post);
+                },
+              ),
             ),
           ),
           loading: () => Center(

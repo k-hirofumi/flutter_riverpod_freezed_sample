@@ -42,8 +42,8 @@ class _HomeState extends ConsumerState<Home> {
       appBar: CustomAppBar(
         title: 'home_title',
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Center(
             child: Column(
               children: [
@@ -156,11 +156,11 @@ class _HomeState extends ConsumerState<Home> {
                     ),
                     child: const Text('carousel_page')),
                 ElevatedButton(
-                    onPressed: () async => HomeNavigator.toSelectorPage(),
+                    onPressed: () async => HomeNavigator.toPostListPage(),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.black),
                     ),
-                    child: const Text('selector_page')),
+                    child: const Text('post_list_page')),
               ],
             ),
           ),

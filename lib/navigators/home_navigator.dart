@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_flavor/main.dart';
-import 'package:test_flavor/pages/selector.dart';
+import 'package:test_flavor/pages/post_list.dart';
 import 'package:test_flavor/pages/tab_page.dart';
 import 'package:test_flavor/pages/text_area.dart';
 import 'package:test_flavor/pages/home.dart';
@@ -52,9 +52,9 @@ class HomeNavigator {
     );
   }
 
-  static void toSelectorPage() {
+  static void toPostListPage() {
     _rootNavigator.pushNamed(
-      '/selector_page',
+      '/post_list_page',
     );
   }
 
