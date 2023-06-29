@@ -5,7 +5,7 @@ import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
 import 'package:test_flavor/utils/error_handler.dart';
 
 class GetItemInfoStateNotifier
-    extends StateNotifier<AsyncValue<ItemInfoStateResponse>> {
+    extends StateNotifier<AsyncValue<List<ItemInfoStateResponse>>> {
   GetItemInfoStateNotifier(this.ref) : super(const AsyncValue.loading()) {
     fetchItem();
   }
@@ -26,12 +26,26 @@ class GetItemInfoStateNotifier
       //   ErrorHandler.handle(error); //エラーハンドリング
       // });
 
-      final data = ItemInfoStateResponse(
-        id: 1,
-        name: 'name',
-        price: '100',
-        type: 'aaa',
-      );
+      final data = [
+        ItemInfoStateResponse(
+          id: 1,
+          name: 'name1',
+          price: '100',
+          type: 'aaa',
+        ),
+        ItemInfoStateResponse(
+          id: 2,
+          name: 'name2',
+          price: '200',
+          type: 'bbb',
+        ),
+        ItemInfoStateResponse(
+          id: 3,
+          name: 'name3',
+          price: '300',
+          type: 'ccc',
+        ),
+      ];
       state = AsyncValue.data(data);
     } catch (error, stackTrace) {
       state = AsyncValue.error(error, stackTrace);
@@ -40,6 +54,6 @@ class GetItemInfoStateNotifier
 }
 
 final getItemStateNotifierProvider = StateNotifierProvider.autoDispose<
-    GetItemInfoStateNotifier, AsyncValue<ItemInfoStateResponse>>((ref) {
+    GetItemInfoStateNotifier, AsyncValue<List<ItemInfoStateResponse>>>((ref) {
   return GetItemInfoStateNotifier(ref);
 });

@@ -10,7 +10,7 @@ import 'package:test_flavor/navigators/main_navigator.dart';
 
 import 'package:test_flavor/pages/home.dart';
 import 'package:test_flavor/pages/introduction_screen.dart';
-import 'package:test_flavor/pages/third.dart';
+import 'package:test_flavor/pages/chat.dart';
 import 'package:test_flavor/providers/app_providers.dart';
 
 void main() {

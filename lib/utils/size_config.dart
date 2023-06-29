@@ -12,18 +12,36 @@ class SizeConfig {
     yourDeviceHeight = MediaQuery.of(context).size.height;
   }
 
-  //画面横サイズを考慮した高さ
-  static double vw(double width) {
-    if (yourDeviceWidth < defaultDeviceHeight) {
+  //画面横サイズを考慮した高さ(minLimitがtrueであればデフォルト画面サイズ指定したサイズより小さくならない)
+  static double vw(
+    double width, //調整対象のサイズ
+    {
+    bool minLimit = true, //最小サイズを制限するか
+    bool maxLimit = false, //最大サイズを制限するか
+    double maxSize = 500, //最大サイズ
+  }) {
+    if (minLimit == true && yourDeviceWidth < defaultDeviceHeight) {
       return width;
+    }
+    if (maxLimit == true && yourDeviceWidth > maxSize) {
+      return width * (maxSize / defaultDeviceWidth);
     }
     return width * (yourDeviceWidth / defaultDeviceWidth);
   }
 
-  //画面縦サイズを考慮した高さ
-  static double vh(double height) {
-    if (yourDeviceHeight < defaultDeviceHeight) {
+  //画面縦サイズを考慮した高さ(minLimitがtrueであればデフォルト画面サイズ指定したサイズより小さくならない)
+  static double vh(
+    double height, //調整対象のサイズ
+    {
+    bool minLimit = true, //最小サイズを制限するか
+    bool maxLimit = false, //最大サイズを制限するか
+    double maxSize = 800, //最大サイズ
+  }) {
+    if (minLimit == true && yourDeviceHeight < defaultDeviceHeight) {
       return height;
+    }
+    if (maxLimit == true && yourDeviceHeight > maxSize) {
+      return height * (maxSize / defaultDeviceHeight);
     }
     return height * (yourDeviceHeight / defaultDeviceHeight);
   }

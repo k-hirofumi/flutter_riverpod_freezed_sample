@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:test_flavor/main.dart';
 import 'package:test_flavor/pages/home.dart';
 import 'package:test_flavor/pages/second.dart';
+import 'package:test_flavor/pages/selector.dart';
 import 'package:test_flavor/pages/web_view.dart';
-import 'package:test_flavor/pages/third.dart';
+import 'package:test_flavor/pages/chat.dart';
 
 class ChatNavigator {
   //ChatNavigatorのルート
   static final chatRoutes = <String, WidgetBuilder>{
-    "/": (context) => const Third(),
+    "/": (context) => const Chat(),
     "/second": (context) => Second(),
+    "/selector_page": (context) => SelectoraPage(),
   };
 
   //MainNavigatorのルート
@@ -42,6 +44,12 @@ class ChatNavigator {
   static void toWebView() {
     _rootNavigator.pushNamed(
       '/webview',
+    );
+  }
+
+  static void toSelectorPage() {
+    _navigatorState.pushNamed(
+      '/selector_page',
     );
   }
 }

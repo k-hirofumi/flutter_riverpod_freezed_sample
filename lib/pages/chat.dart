@@ -6,15 +6,15 @@ import 'package:test_flavor/navigators/account_navigator.dart';
 import 'package:test_flavor/navigators/chat_navigator.dart';
 import 'package:test_flavor/providers/state/get_item_info_state_notifier.dart';
 
-class Third extends ConsumerWidget {
-  const Third({super.key});
+class Chat extends ConsumerWidget {
+  const Chat({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final itemProvider = ref.watch(getItemStateNotifierProvider);
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Third',
+        title: 'Chat',
         hasExitButton: true,
       ),
       body: SafeArea(
@@ -22,7 +22,7 @@ class Third extends ConsumerWidget {
           data: (data) => Center(
             child: Column(
               children: [
-                const Text('third'),
+                const Text('Chat'),
                 ElevatedButton(
                   onPressed: () => ChatNavigator.toSecond(),
                   child: Text('toSecond'),
@@ -30,6 +30,10 @@ class Third extends ConsumerWidget {
                 ElevatedButton(
                   onPressed: () => ChatNavigator.toWebView(),
                   child: Text('toWebview'),
+                ),
+                ElevatedButton(
+                  onPressed: () => ChatNavigator.toSelectorPage(),
+                  child: Text('selector_page'),
                 ),
               ],
             ),

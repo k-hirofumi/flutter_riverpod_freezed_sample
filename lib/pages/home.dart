@@ -10,7 +10,7 @@ import 'package:test_flavor/navigators/main_navigator.dart';
 import 'package:test_flavor/pages/text_area.dart';
 import 'package:test_flavor/pages/forth.dart';
 import 'package:test_flavor/pages/second.dart';
-import 'package:test_flavor/pages/third.dart';
+import 'package:test_flavor/pages/chat.dart';
 import 'package:test_flavor/providers/state/get_friend_info_state_notifier.dart';
 import 'package:test_flavor/providers/repository/get_user_notifier.dart';
 import 'package:test_flavor/providers/repository/update_user_notifier.dart';
@@ -97,16 +97,6 @@ class _HomeState extends ConsumerState<Home> {
                       backgroundColor: MaterialStateProperty.all(Colors.green),
                     ),
                     child: const Text('second')),
-                ElevatedButton(
-                    onPressed: () async => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Third()),
-                        ),
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(Colors.lightGreen),
-                    ),
-                    child: const Text('third')),
                 ElevatedButton(
                     onPressed: () async => Navigator.push(
                           context,
