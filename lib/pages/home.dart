@@ -2,123 +2,195 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test_flavor/state/user_state_notifier.dart';
+import 'package:test_flavor/components/alert_dialog.dart';
+import 'package:test_flavor/components/custom_app_bar.dart';
+import 'package:test_flavor/components/custom_button.dart';
+import 'package:test_flavor/navigators/home_navigator.dart';
+import 'package:test_flavor/navigators/main_navigator.dart';
+import 'package:test_flavor/pages/text_area.dart';
+import 'package:test_flavor/pages/forth.dart';
+import 'package:test_flavor/pages/second.dart';
+import 'package:test_flavor/pages/third.dart';
+import 'package:test_flavor/providers/state/get_friend_info_state_notifier.dart';
+import 'package:test_flavor/providers/repository/get_user_notifier.dart';
+import 'package:test_flavor/providers/repository/update_user_notifier.dart';
+import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
+import 'package:test_flavor/utils/loading_handler.dart';
 
-class Home extends ConsumerWidget {
+class Home extends ConsumerStatefulWidget {
   const Home({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // final userNotifier = ref.watch(userStateNotifierProvider.notifier);
-    // final user = ref.watch(userStateNotifierProvider);
-    final overlay = LoadingOverlay.of(context);
+  ConsumerState<Home> createState() => _HomeState();
+}
 
+class _HomeState extends ConsumerState<Home> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final overlay = LoadingHandler(context);
+      overlay.background(
+          ref.read(getUserNotifierProvider.notifier).fetchDataAndUpdateUser());
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print('home');
     return Scaffold(
-        appBar: AppBar(),
-        body: SafeArea(
+      appBar: CustomAppBar(
+        title: 'home_title',
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Center(
             child: Column(
               children: [
-                const Text('home'),
-                // Text('${ref.watch(userStateNotifierProvider).value!.id}'),
-                // ElevatedButton(
-                //     onPressed: () => ref
-                //         .watch(userStateNotifierProvider.notifier)
-                //         .increment(),
-                //     child: const Text('increase')),
-                // Text(ref.watch(userStateNotifierProvider).value!.name),
-                // ElevatedButton(
-                //     onPressed: () => ref
-                //         .watch(userStateNotifierProvider.notifier)
-                //         .setUser(id: 0, email: ''),
-                //     child: const Text('setUser')),
-                // Text(ref.watch(userStateNotifierProvider).value?.email ?? ''),
-                // ElevatedButton(
-                //     onPressed: () => ref
-                //         .watch(userStateNotifierProvider.notifier)
-                //         .setEmail('mail!!!'),
-                //     child: const Text('setEmail')),
+                Text(
+                  'home',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.red,
+                  ),
+                ),
+                ref.watch(getFriendStateNotifierProvider).when(
+                    data: (data) {
+                      final user = ref.watch(getFriendStateNotifierProvider);
 
-                ref.watch(userStateNotifierProvider).when(
-                      data: (data) => Column(children: [
-                        Text(
-                            '${ref.watch(userStateNotifierProvider).value!.id}'),
-                        ElevatedButton(
-                            onPressed: () => ref
-                                .watch(userStateNotifierProvider.notifier)
-                                .increment(),
-                            child: const Text('increase')),
-                        Text(ref.watch(userStateNotifierProvider).value!.name),
-                        ElevatedButton(
-                            onPressed: () => ref
-                                .watch(userStateNotifierProvider.notifier)
-                                .setUser(id: 0, email: ''),
-                            child: const Text('setUser')),
-                        Text(
-                            ref.watch(userStateNotifierProvider).value?.email ??
-                                ''),
-                        ElevatedButton(
-                            onPressed: () => ref
-                                .watch(userStateNotifierProvider.notifier)
-                                .setEmail('mail!!!'),
-                            child: const Text('setEmail')),
-                        Text('Name: ${data.name}'),
-                      ]),
-                      loading: () => CircularProgressIndicator(),
-                      error: (error, stackTrace) => Text('Error: $error'),
-                    ),
-                // Text(ref.watch(userStateNotifierProvider).value?.email ?? ''),
+                      return Column(children: [
+                        // Text(user.name ?? ''),
+                        Text('test'),
+                      ]);
+                    },
+                    loading: () => CircularProgressIndicator(),
+                    error: (error, stackTrace) {
+                      // WidgetsBinding.instance.addPostFrameCallback((_) {
+                      //   showDialog(
+                      //       context: context,
+                      //       builder: (_) =>
+                      //           NetworkErrorDialog(errorCode: error));
+                      // });
+
+                      return Text('データが取得できませんでした。');
+                    }),
+                CustomButton(
+                    onPressed: () => ref
+                        .watch(getFriendStateNotifierProvider.notifier)
+                        .fetchFrined(),
+                    child: const Text('setUserAsync')),
                 ElevatedButton(
                     onPressed: () => ref
                         .watch(userStateNotifierProvider.notifier)
-                        .fetchDataAndUpdateUser(),
-                    child: const Text('setEmail')),
-
+                        .setUser(name: '!!!!!'),
+                    child: const Text('setUser')),
                 ElevatedButton(
-                    onPressed: () async => await overlay
-                        .during(Future.delayed(const Duration(seconds: 2))),
+                    onPressed: () async =>
+                        ref.invalidate(getFriendStateNotifierProvider),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.red),
                     ),
-                    child: const Text('send!')),
+                    child: const Text('refresh!')),
+                ElevatedButton(
+                    onPressed: () async => HomeNavigator.toSecond(),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.green),
+                    ),
+                    child: const Text('second')),
+                ElevatedButton(
+                    onPressed: () async => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Third()),
+                        ),
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.lightGreen),
+                    ),
+                    child: const Text('third')),
+                ElevatedButton(
+                    onPressed: () async => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Forth()),
+                        ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.purple),
+                    ),
+                    child: const Text('forth')),
+                ElevatedButton(
+                    onPressed: () async => HomeNavigator.toTextArea(),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.purple),
+                    ),
+                    child: const Text('text_area')),
+                ElevatedButton(
+                    onPressed: () async =>
+                        HomeNavigator.toTextAreaModal(context),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.purple),
+                    ),
+                    child: const Text('text_area_modal')),
+                ElevatedButton(
+                    onPressed: () async =>
+                        HomeNavigator.toTextAreaBottomSheet(context),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.purple),
+                    ),
+                    child: const Text('text_area_bottom_sheet')),
+                ElevatedButton(
+                    onPressed: () async => HomeNavigator.toTabPage(),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.pink),
+                    ),
+                    child: Text('tab_page')),
+                ElevatedButton(
+                    onPressed: () async =>
+                        HomeNavigator.toTabPageBottomSheet(context),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.purple),
+                    ),
+                    child: const Text('tab_page_bottom_sheet')),
+                ElevatedButton(
+                    onPressed: () async => HomeNavigator.toCarouselPage(),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.orange),
+                    ),
+                    child: const Text('carousel_page')),
+                ElevatedButton(
+                    onPressed: () async => HomeNavigator.toPostListPage(),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.black),
+                    ),
+                    child: const Text('post_list_page')),
               ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 
-class LoadingOverlay {
-  BuildContext _context;
 
-  void hide() {
-    Navigator.of(_context).pop();
-  }
 
-  void show() {
-    showDialog(
-        context: _context,
-        barrierDismissible: false,
-        builder: (ctx) => _FullScreenLoader());
-  }
+// class LoadingOverlay extends StatelessWidget {
+//   final bool isLoading;
+//   final Widget child;
 
-  Future<T> during<T>(Future<T> future) {
-    show();
-    return future.whenComplete(() => hide());
-  }
+//   LoadingOverlay({required this.isLoading, required this.child});
 
-  LoadingOverlay._create(this._context);
-
-  factory LoadingOverlay.of(BuildContext context) {
-    return LoadingOverlay._create(context);
-  }
-}
-
-class _FullScreenLoader extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        decoration: const BoxDecoration(color: Color.fromRGBO(0, 0, 0, 0.5)),
-        child: const Center(child: CircularProgressIndicator()));
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Stack(
+//       children: [
+//         child,
+//         if (isLoading)
+//           Container(
+//             color: Colors.black54,
+//             child: Center(
+//               child: CircularProgressIndicator(),
+//             ),
+//           ),
+//       ],
+//     );
+//   }
+// }

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'user_entity.dart';
+part of 'user_info_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,35 +14,30 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-UserEntity _$UserEntityFromJson(Map<String, dynamic> json) {
-  return _UserEntity.fromJson(json);
-}
-
 /// @nodoc
-mixin _$UserEntity {
+mixin _$UserInfoState {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $UserEntityCopyWith<UserEntity> get copyWith =>
+  $UserInfoStateCopyWith<UserInfoState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserEntityCopyWith<$Res> {
-  factory $UserEntityCopyWith(
-          UserEntity value, $Res Function(UserEntity) then) =
-      _$UserEntityCopyWithImpl<$Res, UserEntity>;
+abstract class $UserInfoStateCopyWith<$Res> {
+  factory $UserInfoStateCopyWith(
+          UserInfoState value, $Res Function(UserInfoState) then) =
+      _$UserInfoStateCopyWithImpl<$Res, UserInfoState>;
   @useResult
   $Res call({int id, String name, String? email});
 }
 
 /// @nodoc
-class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
-    implements $UserEntityCopyWith<$Res> {
-  _$UserEntityCopyWithImpl(this._value, this._then);
+class _$UserInfoStateCopyWithImpl<$Res, $Val extends UserInfoState>
+    implements $UserInfoStateCopyWith<$Res> {
+  _$UserInfoStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -74,22 +69,22 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
 }
 
 /// @nodoc
-abstract class _$$_UserEntityCopyWith<$Res>
-    implements $UserEntityCopyWith<$Res> {
-  factory _$$_UserEntityCopyWith(
-          _$_UserEntity value, $Res Function(_$_UserEntity) then) =
-      __$$_UserEntityCopyWithImpl<$Res>;
+abstract class _$$_UserInfoStateCopyWith<$Res>
+    implements $UserInfoStateCopyWith<$Res> {
+  factory _$$_UserInfoStateCopyWith(
+          _$_UserInfoState value, $Res Function(_$_UserInfoState) then) =
+      __$$_UserInfoStateCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int id, String name, String? email});
 }
 
 /// @nodoc
-class __$$_UserEntityCopyWithImpl<$Res>
-    extends _$UserEntityCopyWithImpl<$Res, _$_UserEntity>
-    implements _$$_UserEntityCopyWith<$Res> {
-  __$$_UserEntityCopyWithImpl(
-      _$_UserEntity _value, $Res Function(_$_UserEntity) _then)
+class __$$_UserInfoStateCopyWithImpl<$Res>
+    extends _$UserInfoStateCopyWithImpl<$Res, _$_UserInfoState>
+    implements _$$_UserInfoStateCopyWith<$Res> {
+  __$$_UserInfoStateCopyWithImpl(
+      _$_UserInfoState _value, $Res Function(_$_UserInfoState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -99,7 +94,7 @@ class __$$_UserEntityCopyWithImpl<$Res>
     Object? name = null,
     Object? email = freezed,
   }) {
-    return _then(_$_UserEntity(
+    return _then(_$_UserInfoState(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -117,18 +112,13 @@ class __$$_UserEntityCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$_UserEntity implements _UserEntity {
-  _$_UserEntity({this.id = 0, this.name = "", this.email = ""});
 
-  factory _$_UserEntity.fromJson(Map<String, dynamic> json) =>
-      _$$_UserEntityFromJson(json);
+class _$_UserInfoState implements _UserInfoState {
+  _$_UserInfoState({required this.id, required this.name, this.email = ""});
 
   @override
-  @JsonKey()
   final int id;
   @override
-  @JsonKey()
   final String name;
   @override
   @JsonKey()
@@ -136,43 +126,34 @@ class _$_UserEntity implements _UserEntity {
 
   @override
   String toString() {
-    return 'UserEntity(id: $id, name: $name, email: $email)';
+    return 'UserInfoState(id: $id, name: $name, email: $email)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UserEntity &&
+            other is _$_UserInfoState &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, email);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UserEntityCopyWith<_$_UserEntity> get copyWith =>
-      __$$_UserEntityCopyWithImpl<_$_UserEntity>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_UserEntityToJson(
-      this,
-    );
-  }
+  _$$_UserInfoStateCopyWith<_$_UserInfoState> get copyWith =>
+      __$$_UserInfoStateCopyWithImpl<_$_UserInfoState>(this, _$identity);
 }
 
-abstract class _UserEntity implements UserEntity {
-  factory _UserEntity({final int id, final String name, final String? email}) =
-      _$_UserEntity;
-
-  factory _UserEntity.fromJson(Map<String, dynamic> json) =
-      _$_UserEntity.fromJson;
+abstract class _UserInfoState implements UserInfoState {
+  factory _UserInfoState(
+      {required final int id,
+      required final String name,
+      final String? email}) = _$_UserInfoState;
 
   @override
   int get id;
@@ -182,6 +163,6 @@ abstract class _UserEntity implements UserEntity {
   String? get email;
   @override
   @JsonKey(ignore: true)
-  _$$_UserEntityCopyWith<_$_UserEntity> get copyWith =>
+  _$$_UserInfoStateCopyWith<_$_UserInfoState> get copyWith =>
       throw _privateConstructorUsedError;
 }
