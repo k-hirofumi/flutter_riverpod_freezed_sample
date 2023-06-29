@@ -1,9 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_flavor/api/user_api.dart';
-import 'package:test_flavor/entity/state/item_info_state_response.dart';
-import 'package:test_flavor/entity/state/post_list_state_response.dart';
-import 'package:test_flavor/entity/state/user_info_state.dart';
+import 'package:test_flavor/entity/state/post_list_state_response/post_list_state_response.dart';
 import 'package:test_flavor/providers/state/user_info_state_notifier.dart';
 import 'package:test_flavor/utils/error_handler.dart';
 

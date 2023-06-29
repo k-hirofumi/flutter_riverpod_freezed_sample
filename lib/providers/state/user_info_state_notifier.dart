@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:test_flavor/entity/state/user_info_state.dart';
+import 'package:test_flavor/entity/state/user_info_state/user_info_state.dart';
 
 class UserInfoStateNotifier extends StateNotifier<UserInfoState> {
   UserInfoStateNotifier()

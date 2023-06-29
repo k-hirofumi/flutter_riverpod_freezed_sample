@@ -5,7 +5,7 @@ import 'package:test_flavor/components/alert_dialog.dart';
 import 'package:test_flavor/components/custom_app_bar.dart';
 import 'package:test_flavor/components/custom_button.dart';
 import 'package:test_flavor/components/success_dialog.dart';
-import 'package:test_flavor/entity/state/textbox_input_state.dart';
+import 'package:test_flavor/entity/state/textbox_input_state/textbox_input_state.dart';
 import 'package:test_flavor/navigators/home_navigator.dart';
 import 'package:test_flavor/providers/state/get_item_info_state_notifier.dart';
 import 'package:test_flavor/providers/repository/update_user_notifier.dart';

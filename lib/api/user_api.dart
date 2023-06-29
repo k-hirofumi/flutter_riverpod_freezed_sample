@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:test_flavor/entity/response/get_user_response.dart';
+import 'package:test_flavor/entity/response/get_user_response/get_user_response.dart';
 import 'package:test_flavor/utils/dio_client.dart';
 import 'package:test_flavor/utils/error_handler.dart';
 

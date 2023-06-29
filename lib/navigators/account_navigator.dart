@@ -4,10 +4,17 @@ import 'package:test_flavor/pages/home.dart';
 import 'package:test_flavor/pages/second.dart';
 
 class AccountNavigator {
+  //AccountNavigatorのルート
   static final accountRoutes = <String, WidgetBuilder>{
     "/": (context) => Second(),
     "/second": (context) => Second(),
   };
+
+  //MainNavigatorのルート
+  static final mainRoutes = <String, WidgetBuilder>{
+    // "/second": (context) => Second(),
+  };
+
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   static NavigatorState get _navigatorState => navigatorKey.currentState!;
   static NavigatorState _rootNavigator =

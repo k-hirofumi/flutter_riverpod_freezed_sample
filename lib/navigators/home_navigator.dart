@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_flavor/main.dart';
+import 'package:test_flavor/pages/carousel.dart';
 import 'package:test_flavor/pages/post_list.dart';
 import 'package:test_flavor/pages/tab_page.dart';
 import 'package:test_flavor/pages/text_area.dart';
@@ -7,11 +8,22 @@ import 'package:test_flavor/pages/home.dart';
 import 'package:test_flavor/pages/second.dart';
 
 class HomeNavigator {
+  //HomeNavigatorのルート
   static final homeRoutes = <String, WidgetBuilder>{
     "/": (context) => const Home(),
     "/second": (context) => Second(),
     "/textArea": (context) => TextArea(),
   };
+
+  //MainNavigatorのルート
+  static final mainRoutes = <String, WidgetBuilder>{
+    "/second": (context) => Second(),
+    "/text_area": (context) => TextArea(),
+    "/tab_page": (context) => TabPage(),
+    "/carousel_page": (context) => CarouselPage(),
+    "/post_list_page": (context) => PostListPage(),
+  };
+
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   static NavigatorState get _navigatorState => navigatorKey.currentState!;
   static NavigatorState _rootNavigator =

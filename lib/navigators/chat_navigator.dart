@@ -6,11 +6,17 @@ import 'package:test_flavor/pages/web_view.dart';
 import 'package:test_flavor/pages/third.dart';
 
 class ChatNavigator {
+  //ChatNavigatorのルート
   static final chatRoutes = <String, WidgetBuilder>{
     "/": (context) => const Third(),
     "/second": (context) => Second(),
-    // "/login": (context) => const LoginForm(),
   };
+
+  //MainNavigatorのルート
+  static final mainRoutes = <String, WidgetBuilder>{
+    "/webview": (context) => WebViewPage(),
+  };
+
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   static NavigatorState get _navigatorState => navigatorKey.currentState!;
   static NavigatorState _rootNavigator =
