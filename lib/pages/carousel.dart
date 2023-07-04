@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_flavor/components/custom_app_bar.dart';
 
 class CarouselPage extends StatefulWidget {
   @override
@@ -23,7 +24,10 @@ class _CarouselPagePageState extends State<CarouselPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Flutter Carousel with Indicator')),
+      appBar: CustomAppBar(
+        title: 'Flutter Carousel with Indicator',
+        hasExitButton: true,
+      ),
       body: Column(
         children: <Widget>[
           const SizedBox(height: 40),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_flavor/components/custom_app_bar.dart';
+import 'package:test_flavor/components/function_button_app_bar.dart';
 
 class TabPage extends StatefulWidget {
   @override
@@ -62,7 +63,7 @@ class _TabPageState extends State<TabPage> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: FunctionButtonAppBar(
         title: 'Custom TabBar',
         hasExitButton: true,
         bottom: PreferredSize(
