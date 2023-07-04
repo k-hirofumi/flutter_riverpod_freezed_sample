@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test_flavor/pages/welcome.dart';
 import 'package:test_flavor/utils/size_config.dart';
 import 'package:test_flavor/utils/custom_theme_data.dart';
 import 'package:test_flavor/components/lazy_load_index_stack.dart';
@@ -25,19 +26,25 @@ class MyApp extends ConsumerWidget {
     print('Myapp');
 
     return Consumer(
-      builder: (cnt, refx, child) => refx.watch(finishIntroductionProvider) ==
-              false //イントロダクションを完了しているか？
-          ? const IntroductionScreens()
-          : MaterialApp(
-              title: 'Flutter Demo',
-              theme: CustomThemeData().themeData,
-              navigatorKey: MainNavigator.navigatorKey,
-              onGenerateRoute: (settings) {
-                var builder = MainNavigator.mainRoutes[settings.name]!;
+      builder: (cnt, refx, child) {
+        return MaterialApp(
+          title: 'Main',
+          theme: CustomThemeData().themeData,
+          navigatorKey: MainNavigator.navigatorKey,
+          onGenerateRoute: (settings) {
+            var builder;
+            //イントロダクションを完了しているか？
+            if (refx.watch(finishIntroductionProvider) == false) {
+              builder = MainNavigator.introductionRoutes[
+                  settings.name == '/' ? '/welcome' : settings.name]!;
+            } else {
+              builder = MainNavigator.mainRoutes[settings.name]!;
+            }
 
-                return MaterialPageRoute(builder: builder, settings: settings);
-              },
-            ),
+            return MaterialPageRoute(builder: builder, settings: settings);
+          },
+        );
+      },
     );
   }
 }

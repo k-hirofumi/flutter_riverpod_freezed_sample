@@ -4,6 +4,7 @@ import 'package:test_flavor/components/alert_dialog.dart';
 import 'package:test_flavor/components/custom_app_bar.dart';
 import 'package:test_flavor/navigators/account_navigator.dart';
 import 'package:test_flavor/navigators/chat_navigator.dart';
+import 'package:test_flavor/navigators/main_navigator.dart';
 import 'package:test_flavor/providers/app_providers.dart';
 import 'package:test_flavor/providers/state/get_item_info_state_notifier.dart';
 
@@ -39,11 +40,14 @@ class Chat extends ConsumerWidget {
                 Consumer(builder: (context, refx, child) {
                   var provider = ref.watch(finishIntroductionProvider.notifier);
                   return ElevatedButton(
-                    onPressed: () => provider.state = false,
+                    onPressed: () {
+                      provider.state = false;
+                      MainNavigator.toIntroduction();
+                    },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.purple),
                     ),
-                    child: Text('to_introduction'),
+                    child: Text('logout'),
                   );
                 }),
               ],
